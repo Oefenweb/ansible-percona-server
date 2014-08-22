@@ -1,0 +1,25 @@
+---
+# tasks file for percona-server
+- name: add public key
+  apt_key:
+    id: CD2EFD2A
+    url: http://www.percona.com/downloads/RPM-GPG-KEY-percona
+    state: present
+  tags: [configuration, percona-server, percona-server-public-key]
+
+- name: add percona repository
+  apt_repository:
+    repo: "{{ item.type }} {{ item.url }} {{ item.component }}"
+    state: present
+    update_cache: yes
+  with_items: percona_server_repositories
+  tags: [configuration, percona-server, percona-server-repository]
+
+- name: apt-pin packages¶
+  copy:
+    src: etc/apt/preferences.d/00percona.pref
+    dest: /etc/apt/preferences.d/00percona.pref
+    owner: root
+    group: root
+    mode: 0644
+  tags: [configuration, percona-server, percona-server-apt-pin]

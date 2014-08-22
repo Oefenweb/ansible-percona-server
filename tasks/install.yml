@@ -1,0 +1,59 @@
+---
+# tasks file for percona-server
+- name: configure debconf
+  debconf:
+    name: "{{ item.name }}"
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  with_items: percona_server_debconf_selections
+  tags: [configuration, percona-server, percona-server-dependencies]
+
+- name: install dependencies
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: percona_server_dependencies
+  when: percona_server_dependencies
+  tags: [configuration, percona-server, percona-server-dependencies]
+
+- name: install
+  apt:
+    name: "{{ item }}"
+    state: latest
+  with_items: percona_server_install
+  when: percona_server_install
+  tags: [configuration, percona-server, percona-server-install]
+
+- name: copy certificate files
+  copy:
+    src: "{{ item }}"
+    dest: /etc/mysql/
+    owner: root
+    group: mysql
+    mode: 0640
+  with_fileglob: etc/mysql/*.pem
+  notify: restart percona-server
+  tags: [configuration, percona-server, percona-server-configuration]
+
+- name: clean (debug)
+  debug: msg="{{ percona_server_repositories }} {{ percona_server_debconf_selections }} {{ percona_server_dependencies }}"
+  failed_when: true
+  tags: [configuration, percona-server, percona-server-debug]
+
+- name: update configuration file
+  template:
+    src: etc/mysql/my.cnf.j2
+    dest: /etc/mysql/my.cnf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart percona-server
+  tags: [configuration, percona-server, percona-server-configuration]
+
+- name: start and enable service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+  tags: [configuration, percona-server, percona-server-start-enable-service]

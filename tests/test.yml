@@ -1,0 +1,6 @@
+---
+# test file for percona-server
+- hosts: localhost
+  remote_user: root
+  roles:
+    - ansible-percona-server
