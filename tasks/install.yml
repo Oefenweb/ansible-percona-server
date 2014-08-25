@@ -36,11 +36,6 @@
   notify: restart percona-server
   tags: [configuration, percona-server, percona-server-configuration]
 
-- name: clean (debug)
-  debug: msg="{{ percona_server_repositories }} {{ percona_server_debconf_selections }} {{ percona_server_dependencies }}"
-  failed_when: true
-  tags: [configuration, percona-server, percona-server-debug]
-
 - name: update configuration file
   template:
     src: etc/mysql/my.cnf.j2
