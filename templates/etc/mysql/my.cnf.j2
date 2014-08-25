@@ -81,7 +81,7 @@ innodb_stats_on_metadata = {{ percona_server_innodb_stats_on_metadata }}
 innodb_adaptive_flushing_method = {{ percona_server_innodb_adaptive_flushing_method }}
 innodb_flush_neighbor_pages = {{ percona_server_innodb_flush_neighbor_pages }}
 log_warnings_suppress = {{ percona_server_log_warnings_suppress }}
-query_response_time_stats = {{ percona_server_query_response_time_stats }}
+query_response_time_stats = {{ 'ON' if percona_server_query_response_time_stats else 'OFF' }}
 
 ssl-ca=/etc/mysql/ca-cert.pem
 ssl-cert=/etc/mysql/server-cert.pem
