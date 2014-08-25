@@ -23,6 +23,12 @@ None
   - percona-server
 ```
 
+#### TODO
+
+* Install Percona Toolkit UDFs
+* Create ~/.my.cnf
+* Replication
+
 #### License
 
 MIT
