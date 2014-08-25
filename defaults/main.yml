@@ -20,10 +20,10 @@ percona_server_query_cache_type: 1
 percona_server_query_cache_limit: 1M
 percona_server_query_cache_size: 0
 
-percona_server_max_allowed_packet: 256M
-percona_server_group_concat_max_len: 256M
-percona_server_tmp_table_size: 256M
-percona_server_max_heap_table_size: 64M
+percona_server_max_allowed_packet: 64M
+percona_server_group_concat_max_len: 64M
+percona_server_tmp_table_size: 64M
+percona_server_max_heap_table_size: 16M
 
 percona_server_open_files_limit: 1024
 percona_server_innodb_open_files: 300
