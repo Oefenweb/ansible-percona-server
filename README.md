@@ -28,6 +28,7 @@ None
 * Install Percona Toolkit UDFs
 * Create ~/.my.cnf
 * Replication
+* Mention variables in README
 
 #### License
 
