@@ -13,22 +13,6 @@
     soname: libmurmur_udf.so
   tags: [configuration, percona-server, percona-server-toolkit-udfs]
 
-- name: create (specified) users
-  mysql_user:
-    name: "{{ item.name }}"
-    state: present
-  with_items: percona_server_users_present
-  when: percona_server_users_present
-  tags: [configuration, percona-server, percona-server-create-users]
-
-- name: remove (specified) users
-  mysql_user:
-    name: "{{ item.name }}"
-    state: absent
-  with_items: percona_server_users_absent
-  when: percona_server_users_absent
-  tags: [configuration, percona-server, percona-server-remove-users]
-
 - name: create (specified) database
   mysql_db:
     name: "{{ item.name }}"
@@ -44,3 +28,19 @@
   with_items: percona_server_databases_absent
   when: percona_server_databases_absent
   tags: [configuration, percona-server, percona-server-remove-databases]
+
+- name: create (specified) users
+  mysql_user:
+    name: "{{ item.name }}"
+    state: present
+  with_items: percona_server_users_present
+  when: percona_server_users_present
+  tags: [configuration, percona-server, percona-server-create-users]
+
+- name: remove (specified) users
+  mysql_user:
+    name: "{{ item.name }}"
+    state: absent
+  with_items: percona_server_users_absent
+  when: percona_server_users_absent
+  tags: [configuration, percona-server, percona-server-remove-users]

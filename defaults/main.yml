@@ -53,8 +53,10 @@ percona_server_query_response_time_stats: true
 
 percona_server_users_present: []
 percona_server_users_absent:
+  # remove anonymous users
   - name: ''
 
 percona_server_databases_present: []
 percona_server_databases_absent:
+  # remove test database
   - name: test
