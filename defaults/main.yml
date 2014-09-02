@@ -51,12 +51,12 @@ percona_server_innodb_flush_neighbor_pages: none
 percona_server_log_warnings_suppress: ''
 percona_server_query_response_time_stats: true
 
-percona_server_users_present: []
-percona_server_users_absent:
-  # remove anonymous users
-  - name: ''
-
 percona_server_databases_present: []
 percona_server_databases_absent:
   # remove test database
   - name: test
+
+percona_server_users_present: []
+percona_server_users_absent:
+  # remove anonymous users
+  - name: ''
