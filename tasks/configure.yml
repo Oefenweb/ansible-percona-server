@@ -1,2 +1,14 @@
 ---
 # tasks file for percona-server
+- name: install toolkit UDF's
+  shell: "mysql -e \"CREATE FUNCTION {{ item.function }} RETURNS INTEGER SONAME '{{ item.soname }}'\" && touch /var/log/mysql/{{ item.soname }}.created"
+  args:
+    creates: "/var/log/mysql/{{ item.soname }}.created"
+  with_items:
+  - function: fnv1a_64
+    soname: libfnv1a_udf.so
+  - function: fnv_64
+    soname: libfnv_udf.so
+  - function: murmur_hash
+    soname: libmurmur_udf.so
+  tags: [configuration, percona-server, percona-server-toolkit-udfs]
