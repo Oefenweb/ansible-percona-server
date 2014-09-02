@@ -12,3 +12,20 @@
   - function: murmur_hash
     soname: libmurmur_udf.so
   tags: [configuration, percona-server, percona-server-toolkit-udfs]
+
+- name: remove anonymous users
+  mysql_user:
+    name: ''
+    host: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ inventory_hostname }}"
+    - 127.0.0.1
+    - localhost
+  tags: [configuration, percona-server, percona-server-remove-anonymous-users]
+
+- name: remove test database
+  mysql_db:
+    name: test
+    state: absent
+  tags: [configuration, percona-server, percona-server-remove-test-database]
