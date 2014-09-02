@@ -46,6 +46,13 @@
   notify: restart percona-server
   tags: [configuration, percona-server, percona-server-configuration]
 
+- name: start and enable service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+  tags: [configuration, percona-server, percona-server-start-enable-service]
+
 - name: create .my.cnf file
   template:
     src: root/.my.cnf.j2
@@ -54,10 +61,3 @@
     group: root
     mode: 0600
   tags: [configuration, percona-server, percona-server-my-cnf]
-
-- name: start and enable service
-  service:
-    name: mysql
-    state: started
-    enabled: yes
-  tags: [configuration, percona-server, percona-server-start-enable-service]
