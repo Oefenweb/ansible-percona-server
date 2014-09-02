@@ -4,7 +4,7 @@ Set up a percona-server server in Debian-like systems.
 
 #### Requirements
 
-None
+* `python-mysqldb`
 
 #### Variables
 

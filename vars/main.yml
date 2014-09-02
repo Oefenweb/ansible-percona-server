@@ -21,3 +21,4 @@ percona_server_debconf_selections:
 percona_server_dependencies:
   - "percona-server-server-{{ percona_server_version }}"
   - "percona-server-client-{{ percona_server_version }}"
+  - python-mysqldb
