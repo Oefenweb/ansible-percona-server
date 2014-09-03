@@ -34,6 +34,8 @@
 - name: create (specified) users
   mysql_user:
     name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    priv: "{{ item.priv | join('/') }}"
     state: present
   with_items: percona_server_users_present
   when: percona_server_users_present
