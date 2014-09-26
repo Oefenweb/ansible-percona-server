@@ -1,0 +1,7 @@
+---
+# test file for oracle-java
+- hosts: all
+  remote_user: vagrant
+  sudo: true
+  roles:
+    - percona-server

@@ -57,6 +57,13 @@ percona_server_databases_absent:
   - name: test
 
 percona_server_users_present: []
+percona_server_users_present_4_hosts: []
+
 percona_server_users_absent:
   # remove anonymous users
   - name: ''
+percona_server_users_absent_4_hosts:
+  - "{{ ansible_hostname }}"
+  - '127.0.0.1'
+  - 'localhost'
+  - '::1'

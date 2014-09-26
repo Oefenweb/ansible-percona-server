@@ -33,18 +33,26 @@
 
 - name: create (specified) users
   mysql_user:
-    name: "{{ item.name }}"
-    password: "{{ item.password }}"
-    priv: "{{ item.priv | join('/') }}"
+    name: "{{ item[0].name }}"
+    password: "{{ item[0].password }}"
+    priv: "{{ item[0].priv | join('/') }}"
+    host: "{{ item[1] }}"
     state: present
-  with_items: percona_server_users_present
+  with_nested:
+    - percona_server_users_present
+    - percona_server_users_present_4_hosts
+  when: percona_server_users_present and percona_server_users_present_4_hosts
+
   when: percona_server_users_present
   tags: [configuration, percona-server, percona-server-create-users]
 
 - name: remove (specified) users
   mysql_user:
-    name: "{{ item.name }}"
+    name: "{{ item[0].name }}"
+    host: "{{ item[1] }}"
     state: absent
-  with_items: percona_server_users_absent
-  when: percona_server_users_absent
+  with_nested:
+    - percona_server_users_absent
+    - percona_server_users_absent_4_hosts
+  when: percona_server_users_absent and percona_server_users_absent_4_hosts
   tags: [configuration, percona-server, percona-server-remove-users]
