@@ -1,5 +1,5 @@
 ---
-# test file for oracle-java
+# test file for percona-server
 - hosts: all
   remote_user: vagrant
   sudo: true
