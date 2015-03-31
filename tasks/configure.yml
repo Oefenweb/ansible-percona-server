@@ -1,9 +1,18 @@
 ---
 # tasks file for percona-server
+- name: create (lock) directory
+  file:
+    path: /var/lib/ansible/percona-server/lock
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags: [configuration, percona-server, percona-server-toolkit-udfs]
+
 - name: install toolkit UDF's
-  shell: "mysql -e \"CREATE FUNCTION {{ item.function }} RETURNS INTEGER SONAME '{{ item.soname }}'\" && touch /var/log/mysql/{{ item.soname }}.created"
+  shell: "mysql -e \"DROP FUNCTION IF EXISTS {{ item.function }}; CREATE FUNCTION {{ item.function }} RETURNS INTEGER SONAME '{{ item.soname }}'\" && touch /var/lib/ansible/percona-server/lock/{{ item.soname }}"
   args:
-    creates: "/var/log/mysql/{{ item.soname }}.created"
+    creates: "/var/lib/ansible/percona-server/lock/{{ item.soname }}"
   with_items:
   - function: fnv1a_64
     soname: libfnv1a_udf.so
