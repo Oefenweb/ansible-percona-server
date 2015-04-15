@@ -4,8 +4,10 @@
 port = 3306
 socket = /var/run/mysqld/mysqld.sock
 
-ssl-cert=/etc/mysql/client-cert.pem
-ssl-key=/etc/mysql/client-key.pem
+{% if percona_server_ssl_map %}
+ssl-cert={{ percona_server_ssl_map['client-cert']['dest'] }}
+ssl-key={{ percona_server_ssl_map['client-key']['dest'] }}
+{% endif %}
 
 [mysqld_safe]
 socket = /var/run/mysqld/mysqld.sock
@@ -85,9 +87,11 @@ innodb_flush_neighbor_pages = {{ percona_server_innodb_flush_neighbor_pages }}
 log_warnings_suppress = {{ percona_server_log_warnings_suppress }}
 query_response_time_stats = {{ 'ON' if percona_server_query_response_time_stats else 'OFF' }}
 
-ssl-ca=/etc/mysql/ca-cert.pem
-ssl-cert=/etc/mysql/server-cert.pem
-ssl-key=/etc/mysql/server-key.pem
+{% if percona_server_ssl_map %}
+ssl-ca={{ percona_server_ssl_map['ca-cert']['dest'] }}
+ssl-cert={{ percona_server_ssl_map['server-cert']['dest'] }}
+ssl-key={{ percona_server_ssl_map['server-key']['dest'] }}
+{% endif %}
 
 [mysqldump]
 quick

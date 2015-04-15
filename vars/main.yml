@@ -2,10 +2,10 @@
 # vars file for percona-server
 percona_server_repositories:
   - type: deb
-    url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
+    url: "http://repo.percona.com/apt {{ ansible_lsb.codename }}"
     component: main
   - type: deb-src
-    url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
+    url: "http://repo.percona.com/apt {{ ansible_lsb.codename }}"
     component: main
 
 percona_server_debconf_selections:
