@@ -8,6 +8,8 @@ percona_server_install:
   - xtrabackup
   - percona-toolkit
 
+percona_server_ssl_map: {}
+
 percona_server_max_connections: 50
 percona_server_wait_timeout: 28800
 percona_server_interactive_timeout: 28800

@@ -27,12 +27,13 @@
 
 - name: copy certificate files
   copy:
-    src: "{{ item }}"
-    dest: /etc/mysql/
-    owner: root
-    group: mysql
-    mode: 0640
-  with_fileglob: etc/mysql/*.pem
+    src: "{{ item.value.src }}"
+    dest: "{{ item.value.dest }}"
+    owner: "{{ item.value.owner | default('root') }}"
+    group: "{{ item.value.group | default('mysql') }}"
+    mode: "{{ item.value.mode | default('0640') }}"
+  with_dict: percona_server_ssl_map
+  when: percona_server_ssl_map
   notify: restart percona-server
   tags: [configuration, percona-server, percona-server-configuration]
 
