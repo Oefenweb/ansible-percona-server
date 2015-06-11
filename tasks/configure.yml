@@ -51,8 +51,6 @@
     - percona_server_users_present
     - percona_server_users_present_4_hosts
   when: percona_server_users_present and percona_server_users_present_4_hosts
-
-  when: percona_server_users_present
   tags: [configuration, percona-server, percona-server-create-users]
 
 - name: remove (specified) users
