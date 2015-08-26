@@ -1,4 +1,0 @@
----
-# tasks file for percona-server
-- include: repository.yml
-- include: install.yml
