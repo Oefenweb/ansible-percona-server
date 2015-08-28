@@ -1,0 +1,19 @@
+# tasks file for percona-server
+---
+- name: databases | create
+  mysql_db:
+    name: "{{ item.name }}"
+    collation: "{{ item.collation | default('utf8_general_ci') }}"
+    encoding: "{{ item.encoding | default('utf8') }}"
+    state: present
+  with_items: percona_server_databases_present
+  tags:
+    - percona-server-databases-create
+
+- name: databases | drop
+  mysql_db:
+    name: "{{ item.name }}"
+    state: absent
+  with_items: percona_server_databases_absent
+  tags:
+    - percona-server-databases-drop

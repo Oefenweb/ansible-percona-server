@@ -1,0 +1,110 @@
+# {{ ansible_managed }}
+
+[client]
+port = {{ percona_server_port }}
+socket = {{ percona_server_socket }}
+
+{% if percona_server_ssl_map %}
+ssl_cert = {{ percona_server_ssl_map['client-cert']['dest'] }}
+ssl_key = {{ percona_server_ssl_map['client-key']['dest'] }}
+{% endif %}
+
+[mysqld_safe]
+socket = {{ percona_server_socket }}
+nice = 0
+
+[mysqld]
+user = mysql
+socket = {{ percona_server_socket }}
+pid_file = {{ percona_server_pid_file }}
+port = {{ percona_server_port }}
+basedir = /usr
+datadir = {{ percona_server_datadir }}
+tmpdir = /tmp
+lc_messages_dir = /usr/share/mysql
+
+general_log = {{ 1 if percona_server_general_log else 0 }}
+general_log_file = {{ percona_server_general_log_file }}
+log_error = {{ percona_server_log_error }}
+log_queries_not_using_indexes = {{ 1 if percona_server_log_queries_not_using_indexes else 0 }}
+slow_query_log = {{ 1 if percona_server_slow_query_log else 0 }}
+slow_query_log_file = {{ percona_server_slow_query_log_file }}
+
+skip_external_locking = 1
+skip_name_resolve = {{ 1 if percona_server_skip_name_resolve else 0 }}
+
+max_connections = {{ percona_server_max_connections }}
+wait_timeout = {{ percona_server_wait_timeout }}
+interactive_timeout = {{ percona_server_interactive_timeout }}
+
+sql_mode = {{ percona_server_sql_mode }}
+
+character_set_server = {{ percona_server_character_set_server }}
+collation_server = {{ percona_server_collation_server }}
+{% if percona_server_skip_character_set_client_handshake %}
+skip-character-set-client-handshake
+{% endif %}
+init_connect='{{ percona_server_init_connect }}'
+
+default_storage_engine = {{ percona_server_default_storage_engine }}
+
+key_buffer_size = {{ percona_server_key_buffer_size }}
+myisam_recover_options = FORCE,BACKUP
+
+thread_stack = {{ percona_server_thread_stack }}
+thread_cache_size = {{ percona_server_thread_cache_size }}
+
+query_cache_type = {{ percona_server_query_cache_type }}
+query_cache_limit = {{ percona_server_query_cache_limit }}
+query_cache_size = {{ percona_server_query_cache_size }}
+
+max_allowed_packet = {{ percona_server_max_allowed_packet }}
+group_concat_max_len = {{ percona_server_group_concat_max_len }}
+
+tmp_table_size = {{ percona_server_tmp_table_size }}
+max_heap_table_size = {{ percona_server_max_heap_table_size }}
+
+open_files_limit = {{ percona_server_open_files_limit }}
+innodb_open_files = {{ percona_server_innodb_open_files }}
+table_definition_cache = {{ percona_server_table_definition_cache }}
+table_open_cache = {{ percona_server_table_open_cache }}
+
+expire_logs_days = {{ percona_server_expire_logs_days }}
+max_binlog_size = {{ percona_server_max_binlog_size }}
+
+innodb_buffer_pool_size = {{ percona_server_innodb_buffer_pool_size }}
+innodb_additional_mem_pool_size = {{ percona_server_innodb_additional_mem_pool_size }}
+innodb_log_file_size = {{ percona_server_innodb_log_file_size }}
+innodb_log_buffer_size = {{ percona_server_innodb_log_buffer_size }}
+innodb_flush_log_at_trx_commit = {{ percona_server_innodb_flush_log_at_trx_commit }}
+innodb_flush_method = {{ percona_server_innodb_flush_method }}
+innodb_thread_concurrency = {{ percona_server_innodb_thread_concurrency }}
+innodb_write_io_threads = {{ percona_server_innodb_write_io_threads }}
+innodb_read_io_threads = {{ percona_server_innodb_read_io_threads }}
+innodb_io_capacity = {{ percona_server_innodb_io_capacity }}
+
+innodb_file_per_table
+innodb_stats_on_metadata = {{ 1 if percona_server_innodb_stats_on_metadata else 0}}
+
+innodb_adaptive_flushing_method = {{ percona_server_innodb_adaptive_flushing_method }}
+innodb_flush_neighbor_pages = {{ percona_server_innodb_flush_neighbor_pages }}
+log_warnings_suppress = {{ percona_server_log_warnings_suppress }}
+query_response_time_stats = {{ 1 if percona_server_query_response_time_stats else 0 }}
+
+{% if percona_server_ssl_map %}
+ssl_ca = {{ percona_server_ssl_map['ca-cert']['dest'] }}
+ssl_cert = {{ percona_server_ssl_map['server-cert']['dest'] }}
+ssl_key = {{ percona_server_ssl_map['server-key']['dest'] }}
+{% endif %}
+
+[mysqldump]
+quick
+quote-names
+max_allowed_packet = {{ percona_server_mysqldump_max_allowed_packet }}
+
+[mysql]
+
+[isamchk]
+key_buffer_size = {{ percona_server_isamchk_key_buffer_size }}
+
+!includedir /etc/mysql/conf.d/

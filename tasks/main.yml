@@ -1,0 +1,64 @@
+# tasks file for percona-server
+---
+- include: version-support.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-version-support
+
+- include: first-run.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-first-run
+
+- include: repository.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-repository
+
+- include: install.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-install
+
+- include: configure.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-configure
+
+- include: ib-logfile.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-ib-logfile
+  when: mysqld_installed.stat.exists == false
+
+- include: toolkit-udfs.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-toolkit-udfs
+
+- include: databases.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-databases
+
+- include: users.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-users
+
+- name: start and enable service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+  tags:
+    - percona-server-start-enable-service
