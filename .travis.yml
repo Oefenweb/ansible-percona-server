@@ -34,6 +34,10 @@ branches:
 before_install:
   - sudo apt-get update -qq
 
+  # Remove mysql-server and percona-server-(server|client)
+  - sudo apt-get remove --purge mysql-server
+  - sudo apt-get remove --purge percona-server-server percona-server-client || true
+
 install:
   # Install Ansible.
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi

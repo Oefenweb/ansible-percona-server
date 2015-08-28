@@ -22,6 +22,7 @@ percona_server_debconf_selections:
    vtype: password
 
 percona_server_dependencies:
+  - "percona-server-client-{{ percona_server_version }}"
   - "percona-server-server-{{ percona_server_version }}"
   - python-mysqldb
 
