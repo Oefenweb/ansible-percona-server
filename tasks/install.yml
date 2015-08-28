@@ -5,7 +5,7 @@
     value: "{{ item.value }}"
     vtype: "{{ item.vtype }}"
   with_items: percona_server_debconf_selections
-  when: mysqld_installed.stat.exists == false
+  when: mysqld_installed.rc != 0
   tags:
     - percona-server-install-configure-debconf
 
