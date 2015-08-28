@@ -4,3 +4,35 @@
   remote_user: root
   roles:
     - ../../
+  vars:
+    percona_server_databases_present:
+      - name: ipsum
+      - name: dolor
+
+    percona_server_databases_absent:
+      - name: sit
+      - name: amet
+
+    percona_server_users_present_hosts:
+      - 'localhost'
+      - '%'
+
+    percona_server_users_present:
+      - name: consectetur
+        password: 'elit'
+        privs:
+          - 'ipsum.*:ALL'
+          - 'dolor.*:ALL'
+      - name: adipiscing
+        password: 'lacus'
+        privs:
+          - 'ipsum.*:SELECT'
+          - 'dolor.*:INSERT,UPDATE'
+        hosts:
+          - '%'
+
+    percona_server_users_absent:
+      - name: urna
+      - name: vehicula
+        hosts:
+          - '%'
