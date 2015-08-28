@@ -1,0 +1,8 @@
+# tasks file for percona-server
+---
+- name: first-run | check
+  stat:
+    path: /usr/sbin/mysqld
+  register: mysqld_installed
+  tags:
+    - percona-server-first-run-check

@@ -1,0 +1,36 @@
+# vars file for percona-server
+---
+percona_server_versions_supported:
+  - 5.5
+
+percona_server_repositories:
+  - type: deb
+    url: "http://repo.percona.com/apt {{ ansible_lsb.codename }}"
+    component: main
+  - type: deb-src
+    url: "http://repo.percona.com/apt {{ ansible_lsb.codename }}"
+    component: main
+
+percona_server_debconf_selections:
+ - name: "percona-server-server-{{ percona_server_version }}"
+   question: percona-server-server/root_password
+   value: "{{ percona_server_root_password }}"
+   vtype: password
+ - name: "percona-server-server-{{ percona_server_version }}"
+   question: percona-server-server/root_password_again
+   value: "{{ percona_server_root_password }}"
+   vtype: password
+
+percona_server_dependencies:
+  - "percona-server-server-{{ percona_server_version }}"
+  - python-mysqldb
+
+percona_server_lock_path: /var/lib/ansible/percona-server/lock
+
+percona_server_toolkit_udfs:
+  - function: fnv1a_64
+    soname: libfnv1a_udf.so
+  - function: fnv_64
+    soname: libfnv_udf.so
+  - function: murmur_hash
+    soname: libmurmur_udf.so
