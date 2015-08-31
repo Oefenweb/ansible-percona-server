@@ -1,0 +1,35 @@
+# tasks file for percona-server
+---
+- name: configure | copy certificate files
+  copy:
+    src: "{{ item.value.src }}"
+    dest: "{{ item.value.dest }}"
+    owner: "{{ item.value.owner | default('root') }}"
+    group: "{{ item.value.group | default('mysql') }}"
+    mode: "{{ item.value.mode | default('0640') }}"
+  with_dict: percona_server_ssl_map
+  notify: restart percona-server
+  tags:
+    - percona-server-configure-copy-certificate-files
+
+- name: configure | update (global) configuration file
+  template:
+    src: etc/mysql/my.cnf.j2
+    dest: /etc/mysql/my.cnf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart percona-server
+  tags:
+    - percona-server-configure-global-my-cnf
+
+- name: configure | update (root) configuration file
+  template:
+    src: root/.my.cnf.j2
+    dest: '~root/.my.cnf'
+    owner: root
+    group: root
+    mode: 0600
+  when: percona_server_manage_root_my_cnf
+  tags:
+    - percona-server-configure-root-my-cnf

@@ -1,0 +1,9 @@
+# tasks file for percona-server
+---
+- name: first-run | check
+  shell: "dpkg-query -W -f='${Status}' percona-server-server-{{ percona_server_version }} | grep -q 'install ok installed'"
+  register: mysqld_installed
+  changed_when: false
+  failed_when: false
+  tags:
+    - percona-server-first-run-check

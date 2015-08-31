@@ -1,0 +1,99 @@
+# defaults file for percona_server
+---
+percona_server_version: 5.5
+
+percona_server_root_password: '+eswuw9uthUteFreyAqu'
+percona_server_manage_root_my_cnf: true
+
+percona_server_install:
+  - xtrabackup
+  - percona-toolkit
+
+percona_server_socket: /var/run/mysqld/mysqld.sock
+percona_server_pid_file: /var/run/mysqld/mysqld.pid
+percona_server_port: 3306
+percona_server_datadir: /var/lib/mysql
+
+percona_server_general_log: false
+percona_server_general_log_file: /var/log/mysql/mysql.log
+percona_server_log_error: /var/log/mysql/error.log
+percona_server_log_queries_not_using_indexes: false
+percona_server_slow_query_log: false
+percona_server_slow_query_log_file: /var/log/mysql/mysql-slow.log
+
+percona_server_skip_name_resolve: true
+
+percona_server_max_connections: 150
+percona_server_wait_timeout: 28800
+percona_server_interactive_timeout: 28800
+
+percona_server_sql_mode: ''
+
+percona_server_character_set_server: utf8
+percona_server_collation_server: utf8_general_ci
+percona_server_skip_character_set_client_handshake: true
+percona_server_init_connect: 'SET collation_connection = utf8_general_ci; SET NAMES utf8;'
+
+percona_server_default_storage_engine: InnoDB
+
+percona_server_key_buffer_size: 32M
+percona_server_isamchk_key_buffer_size: "{{ percona_server_key_buffer_size }}"
+
+percona_server_thread_stack: 256K
+percona_server_thread_cache_size: 8
+percona_server_query_cache_type: 1
+percona_server_query_cache_limit: 1M
+percona_server_query_cache_size: 16M
+
+percona_server_max_allowed_packet: 16M
+percona_server_mysqldump_max_allowed_packet: "{{ percona_server_max_allowed_packet }}"
+percona_server_group_concat_max_len: 1024
+percona_server_tmp_table_size: 16M
+percona_server_max_heap_table_size: 16M
+
+percona_server_open_files_limit: 1024
+percona_server_innodb_open_files: 300
+percona_server_table_definition_cache: 400
+percona_server_table_open_cache: 400
+
+percona_server_expire_logs_days: 10
+percona_server_max_binlog_size: 100M
+
+percona_server_innodb_buffer_pool_size: 128M
+percona_server_innodb_additional_mem_pool_size: 8M
+percona_server_innodb_log_file_size: 50M
+percona_server_innodb_log_buffer_size: 8M
+percona_server_innodb_flush_log_at_trx_commit: 1
+percona_server_innodb_flush_method: O_DIRECT
+percona_server_innodb_thread_concurrency: 0
+percona_server_innodb_write_io_threads: 4
+percona_server_innodb_read_io_threads: 4
+percona_server_innodb_io_capacity: 200
+
+percona_server_innodb_stats_on_metadata: false
+
+percona_server_innodb_adaptive_flushing_method: keep_average
+percona_server_innodb_flush_neighbor_pages: none
+percona_server_log_warnings_suppress: ''
+percona_server_query_response_time_stats: true
+
+percona_server_ssl_map: {}
+
+percona_server_databases_present: []
+percona_server_databases_absent:
+  # Remove test database
+  - name: test
+
+percona_server_users_present: []
+percona_server_users_present_hosts:
+  - 'localhost'
+
+percona_server_users_absent:
+  # Remove anonymous users
+  - name: ''
+percona_server_users_absent_hosts:
+  - "{{ ansible_hostname }}"
+  - '127.0.0.1'
+  - 'localhost'
+  - '::1'
+  - '%'
