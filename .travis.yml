@@ -33,8 +33,6 @@ branches:
 
 matrix:
   allow_failures:
-    # See https://github.com/ansible/ansible/blob/devel/CHANGELOG.md#192-dancing-in-the-street---jun-26-2015
-    - env: ANSIBLE_VERSION=1.9.1
     # See https://github.com/ansible/ansible/commit/b35e1a664d574efca2a4f8022fef447bf3e1661e
     - env: ANSIBLE_VERSION=1.6.7
 
