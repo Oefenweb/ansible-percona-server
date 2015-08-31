@@ -37,14 +37,6 @@
     - percona-server-ib-logfile
   when: mysqld_installed.rc != 0
 
-- name: start and enable service
-  service:
-    name: mysql
-    state: started
-    enabled: yes
-  tags:
-    - percona-server-start-enable-service
-
 - include: toolkit-udfs.yml
   tags:
     - configuration
@@ -62,3 +54,11 @@
     - configuration
     - percona-server
     - percona-server-users
+
+- name: start and enable service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+  tags:
+    - percona-server-start-enable-service
