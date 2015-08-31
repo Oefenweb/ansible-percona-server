@@ -41,10 +41,8 @@ matrix:
 before_install:
   - sudo apt-get update -qq
 
-  # Remove mysql-server and percona-server-(server|client)
-  - sudo apt-get remove --purge 'mysql*'
-  - sudo rm -Rf /var/lib/mysql
-  - sudo apt-get remove --purge percona-server-server percona-server-client || true
+  # Remove mysql-*
+  - sudo apt-get remove --purge 'mysql-*'
 
 install:
   # Install Ansible.
