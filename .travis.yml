@@ -31,6 +31,11 @@ branches:
   only:
     - master
 
+matrix:
+  allow_failures:
+    # See https://github.com/ansible/ansible/commit/b35e1a664d574efca2a4f8022fef447bf3e1661e
+    - env: ANSIBLE_VERSION=1.6.7
+
 before_install:
   - sudo apt-get update -qq
 
