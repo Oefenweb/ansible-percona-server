@@ -30,6 +30,13 @@
     - percona-server
     - percona-server-configure
 
+- include: replication.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-replication
+  when: percona_server_configure_replication
+
 - include: ib-logfile.yml
   tags:
     - configuration
