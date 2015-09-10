@@ -56,8 +56,13 @@ percona_server_innodb_open_files: 300
 percona_server_table_definition_cache: 400
 percona_server_table_open_cache: 400
 
-percona_server_expire_logs_days: 10
-percona_server_max_binlog_size: 100M
+percona_server_configure_replication: false
+percona_server_report_host: "{{ inventory_hostname }}"
+percona_server_read_only: false
+percona_server_skip_slave_start: false
+
+percona_server_expire_logs_days: 7
+percona_server_max_binlog_size: 1G
 
 percona_server_innodb_buffer_pool_size: 128M
 percona_server_innodb_additional_mem_pool_size: 8M

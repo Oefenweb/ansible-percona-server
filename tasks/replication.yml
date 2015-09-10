@@ -1,0 +1,22 @@
+# tasks file for percona-server
+---
+- name: replication | create (conf.d) directory
+  file:
+    path: "{{ percona_server_conf_d_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - percona-server-replication-conf-d-directory
+
+- name: replication | update configuration file
+  template:
+    src: etc/mysql/conf.d/replication.cnf.j2
+    dest: "{{ percona_server_conf_d_path }}/replication.cnf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart percona-server
+  tags:
+    - percona-server-replication-cnf

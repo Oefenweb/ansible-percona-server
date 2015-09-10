@@ -91,10 +91,30 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `percona_server_table_definition_cache`: [default: `400`]: The number of table definitions (from `.frm` files) that can be stored in the definition cache
 * `percona_server_table_open_cache`: [default: `400`]: The number of open tables for all threads. Increasing this value increases the number of file descriptors that `mysqld` requires
 
-##### Binary log
+##### Replication / binary log
 
-* `percona_server_expire_logs_days`: [default: `10`]: The number of days for automatic binary log file removal
-* `percona_server_max_binlog_size`: [default: `100M`]: If a write to the binary log causes the current log file size to exceed the value of this variable, the server rotates the binary logs (closes the current file and opens the next one)
+* `percona_server_configure_replication`: [default: `false`]: Whether or not the configure replication (related settings, section below)
+* `percona_server_server_id`: [required]: This option is common to both master and slave replication servers, and is used in replication to enable master and slave servers to identify themselves uniquely (e.g. `1`, `2`)
+
+* `percona_server_report_host`: [default: `{{ inventory_hostname }}`]: The host name or IP address of the slave to be reported to the master during slave registration. This value appears in the output of `SHOW SLAVE HOSTS` on the master server
+
+* `percona_server_read_only`: [default: `false`]: When the read_only system variable is enabled, the server permits no client updates except from users who have the `SUPER` privilege
+* `percona_server_skip_slave_start`: [default: `false`]: Tells the slave server not to start the slave threads when the server starts
+
+* `percona_server_expire_logs_days`: [default: `7`]: The number of days for automatic binary log file removal
+* `percona_server_max_binlog_size`: [default: `1G`]: If a write to the binary log causes the current log file size to exceed the value of this variable, the server rotates the binary logs (closes the current file and opens the next one)
+
+###### Master
+
+* `percona_server_log_bin`: [optional, required for `master`]: Enable binary logging. The option value, if given, is the base name for the log sequence. The server creates binary log files in sequence by adding a numeric suffix to the base name (e.g. `mysql-bin`)
+* `percona_server_log_bin_index`: [optional, required for `master`]: The index file for binary log file names (e.g. `mysql-bin.index`)
+* `percona_server_sync_binlog`: [optional, required for `master`]: If the value of this variable is greater than `0`, the MySQL server synchronizes its binary log to disk (using `fdatasync()`) after every `sync_binlog` writes to the binary log (e.g. `1`)
+
+###### Slave
+
+* `percona_server_relay_log`: [optional, required for `slave`]: The option value, if given, is the base name for the log sequence. The server creates relay log files in sequence by adding a numeric suffix to the base name (e.g. `mysql-relay`)
+* `percona_server_relay_log_index`: [optional, required for `slave`]: The index file for relay log file names (e.g. `mysql-relay.index`)
+* `percona_server_sync_relay_log`: [optional, required for `slave`]: If the value of this variable is greater than 0``, the MySQL server synchronizes its relay log to disk (using `fdatasync()`) after every `sync_relay_log` events are written to the relay log (e.g. `1`)
 
 ##### InnoDB
 
@@ -240,6 +260,100 @@ None
       server-key:
         src: ../../../files/percona-server/etc/mysql/server-key.pem
         dest: /etc/mysql/server-key.pem
+```
+
+##### Configure replication
+
+###### Master-slave
+
+```yaml
+- hosts: master
+  roles:
+    - percona-server
+  vars:
+    percona_server_users_present:
+      - name: replicator
+        password: 'replicator'
+        privs:
+          - '*.*:REPLICATION SLAVE'
+        hosts:
+          - '%'
+
+    percona_server_configure_replication: true
+    percona_server_server_id: 1
+    percona_server_log_bin: mysql-bin
+    percona_server_log_bin_index: mysql-bin.index
+    percona_server_sync_binlog: 1
+
+- hosts: slave
+  roles:
+    - percona-server
+  vars:
+      - name: replicator
+        password: 'replicator'
+        privs:
+          - '*.*:REPLICATION SLAVE'
+        hosts:
+          - '%'
+
+    percona_server_configure_replication: true
+    percona_server_server_id: 2
+    percona_server_relay_log: mysql-relay
+    percona_server_relay_log_index: mysql-relay.index
+    percona_server_sync_relay_log: 1
+
+    percona_server_read_only: true
+    percona_server_skip_slave_start: true
+```
+
+###### Master-master
+
+```yaml
+- hosts: master1
+  roles:
+    - percona-server
+  vars:
+    percona_server_users_present:
+      - name: replicator
+        password: 'replicator'
+        privs:
+          - '*.*:REPLICATION SLAVE'
+        hosts:
+          - '%'
+
+    percona_server_configure_replication: true
+    percona_server_server_id: 1
+    percona_server_log_bin: mysql-bin
+    percona_server_log_bin_index: mysql-bin.index
+    percona_server_sync_binlog: 1
+    percona_server_relay_log: mysql-relay
+    percona_server_relay_log_index: mysql-relay.index
+    percona_server_sync_relay_log: 1
+
+    percona_server_skip_slave_start: true
+
+- hosts: master2
+  roles:
+    - percona-server
+  vars:
+    percona_server_users_present:
+      - name: replicator
+        password: 'replicator'
+        privs:
+          - '*.*:REPLICATION SLAVE'
+        hosts:
+          - '%'
+
+    percona_server_configure_replication: true
+    percona_server_server_id: 2
+    percona_server_log_bin: mysql-bin
+    percona_server_log_bin_index: mysql-bin.index
+    percona_server_sync_binlog: 1
+    percona_server_relay_log: mysql-relay
+    percona_server_relay_log_index: mysql-relay.index
+    percona_server_sync_relay_log: 1
+
+    percona_server_skip_slave_start: true
 ```
 
 #### License
