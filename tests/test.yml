@@ -8,6 +8,7 @@
     percona_server_databases_present:
       - name: ipsum
       - name: dolor
+      - name: requiressl
 
     percona_server_databases_absent:
       - name: sit
@@ -28,6 +29,12 @@
         privs:
           - 'ipsum.*:SELECT'
           - 'dolor.*:INSERT,UPDATE'
+        hosts:
+          - '%'
+      - name: requiressl
+        password: 'requiressl'
+        privs:
+          - '*.*:ALL,REQUIRESSL'
         hosts:
           - '%'
 
