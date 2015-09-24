@@ -35,7 +35,7 @@
     priv: '*.*:REQUIRESSL'
     host: "{{ item[1] }}"
     state: present
-    changed_when: false
+  changed_when: false
   with_subelements:
     - "{{ percona_server_users_present | selectattr('hosts', 'defined') | list }}"
     - hosts
