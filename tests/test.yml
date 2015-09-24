@@ -32,9 +32,8 @@
           - '%'
       - name: ssluser
         password: 'opus'
-        require_ssl: true
         privs:
-          - '*.*:ALL'
+          - '*.*:REQUIRESSL'
         hosts:
           - '%'
 

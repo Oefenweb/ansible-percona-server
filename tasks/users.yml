@@ -28,22 +28,6 @@
     - percona-server-users-create
     - percona-server-users-create-custom-hosts
 
-- name: users | require ssl (custom hosts)
-  mysql_user:
-    name: "{{ item[0].name }}"
-    append_privs: true
-    priv: '*.*:REQUIRESSL'
-    host: "{{ item[1] }}"
-    state: present
-  changed_when: false
-  with_subelements:
-    - "{{ percona_server_users_present | selectattr('hosts', 'defined') | list }}"
-    - hosts
-  when: item.0.require_ssl is defined and item.0.require_ssl
-  tags:
-    - percona-server-users-require-ssl
-    - percona-server-users-require-ssl-custom-hosts
-
 - name: users | drop (default hosts)
   mysql_user:
     name: "{{ item[0].name }}"
