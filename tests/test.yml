@@ -33,7 +33,7 @@
       - name: ssluser
         password: 'opus'
         privs:
-          - '*.*:REQUIRESSL'
+          - '*.*:ALL,REQUIRESSL'
         hosts:
           - '%'
 
