@@ -249,8 +249,8 @@ None
         src: ../../../files/percona-server/etc/mysql/ca-cert.pem
         dest: /etc/mysql/ca-cert.pem
       client-cert:
-        src: ../../../files/percona-server/etc/mysql/ca-key.pem
-        dest: /etc/mysql/ca-key.pem
+        src: ../../../files/percona-server/etc/mysql/client-cert.pem
+        dest: /etc/mysql/client-cert.pem
       client-key:
         src: ../../../files/percona-server/etc/mysql/client-key.pem
         dest: /etc/mysql/client-key.pem
