@@ -1,0 +1,31 @@
+# tasks file for percona-server, queries
+---
+- name: queries | create (sql) directory
+  file:
+    path: "{{ percona_server_sql_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - percona-server-queries-sql-directory
+
+- name: queries | create (sql) files
+  template:
+    src: var/lib/ansible/percona-server/sql/template.sql.j2
+    dest: "{{ percona_server_sql_path }}/{{ item.database }}.sql"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: percona_server_queries
+  tags:
+    - percona-server-queries-sql-files
+
+- name: queries | execute (sql) files
+  mysql_db:
+    state: import
+    name: "{{ item.database }}"
+    target: "{{ percona_server_sql_path }}/{{ item.database }}.sql"
+  with_items: percona_server_queries
+  tags:
+    - percona-server-queries-execute-sql-files

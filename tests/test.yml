@@ -36,3 +36,8 @@
       - name: vehicula
         hosts:
           - '%'
+
+    percona_server_queries:
+      - database: mysql
+        queries:
+          - "INSERT IGNORE INTO host(host,db) VALUES ('test','test')"

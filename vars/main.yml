@@ -37,3 +37,5 @@ percona_server_toolkit_udfs:
     soname: libfnv_udf.so
   - function: murmur_hash
     soname: libmurmur_udf.so
+
+percona_server_sql_path: /var/lib/ansible/percona-server/sql

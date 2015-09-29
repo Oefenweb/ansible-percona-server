@@ -176,6 +176,12 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 * `percona_server_users_absent_hosts`: [default: `[{{ ansible_hostname }}, 127.0.0.1, localhost, ::1, %]`]: Hosts to `DROP` privileges for
 
+##### Queries
+
+* `percona_server_queries`: [default: `[]`]: Query declarations
+* `percona_server_queries.{n}.database`: [required]: Name of the database to execute queries on
+* `percona_server_queries.{n}.queries`: [default: `[]`]: A list of queries to execute
+
 ## Dependencies
 
 None
