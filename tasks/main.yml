@@ -66,6 +66,6 @@
   service:
     name: mysql
     state: started
-    enabled: yes
+    enabled: true
   tags:
     - percona-server-start-enable-service
