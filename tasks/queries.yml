@@ -1,0 +1,11 @@
+# tasks file for percona-server, queries
+---
+- name: queries | execute sql
+  command: "mysql --database=\"{{ item.0.database }}\" -e \"{{ item.1 }}; SELECT ROW_COUNT();\" --skip-column-names"
+  register: rows_affected
+  changed_when: "rows_affected.stdout | int > 0"
+  with_subelements:
+    - percona_server_queries
+    - queries
+  tags:
+    - percona-server-queries-execute-sql

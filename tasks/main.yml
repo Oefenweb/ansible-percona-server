@@ -62,6 +62,12 @@
     - percona-server
     - percona-server-users
 
+- include: queries.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-queries
+
 - name: start and enable service
   service:
     name: mysql
