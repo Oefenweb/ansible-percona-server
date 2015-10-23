@@ -8,4 +8,4 @@
     - percona_server_queries
     - queries
   tags:
-    - percona-server-execute-sql
+    - percona-server-queries-execute-sql
