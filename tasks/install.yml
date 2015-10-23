@@ -1,3 +1,5 @@
+# tasks file for percona-server
+---
 - name: install | configure debconf
   debconf:
     name: "{{ item.name }}"
