@@ -114,7 +114,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 * `percona_server_relay_log`: [optional, required for `slave`]: The option value, if given, is the base name for the log sequence. The server creates relay log files in sequence by adding a numeric suffix to the base name (e.g. `mysql-relay`)
 * `percona_server_relay_log_index`: [optional, required for `slave`]: The index file for relay log file names (e.g. `mysql-relay.index`)
-* `percona_server_sync_relay_log`: [optional, required for `slave`]: If the value of this variable is greater than 0``, the MySQL server synchronizes its relay log to disk (using `fdatasync()`) after every `sync_relay_log` events are written to the relay log (e.g. `1`)
+* `percona_server_sync_relay_log`: [optional, required for `slave`]: If the value of this variable is greater than `0`, the MySQL server synchronizes its relay log to disk (using `fdatasync()`) after every `sync_relay_log` events are written to the relay log (e.g. `1`)
 
 ##### InnoDB
 
