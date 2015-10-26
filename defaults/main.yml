@@ -102,3 +102,5 @@ percona_server_users_absent_hosts:
   - 'localhost'
   - '::1'
   - '%'
+
+percona_server_queries: []
