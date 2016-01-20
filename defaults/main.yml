@@ -24,6 +24,7 @@ percona_server_slow_query_log_file: /var/log/mysql/mysql-slow.log
 percona_server_skip_name_resolve: true
 
 percona_server_max_connections: 150
+percona_server_back_log: 50
 percona_server_wait_timeout: 28800
 percona_server_interactive_timeout: 28800
 
