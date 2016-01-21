@@ -39,7 +39,8 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 ##### Connection
 
 * `percona_server_max_connections`: [default: `150`]: The maximum permitted number of simultaneous client connections
-* `percona_server_wait_timeout`: [default: `28800`]: The number of seconds the server waits for activity on a noninteractive connection before closing it
+* `percona_server_back_log`: [default: `50`]: The number of outstanding connection requests MySQL can have. This comes into play when the main MySQL thread gets very many connection requests in a very short time
+* `percona_server_wait_timeout`: [default: `28800`]: The number of seconds the server waits for activity on a non-interactive connection before closing it
 * `percona_server_interactive_timeout`: [default: `28800`]: The number of seconds the server waits for activity on an interactive connection before closing it
 
 ##### SQL mode

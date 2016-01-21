@@ -34,6 +34,7 @@ skip_external_locking = 1
 skip_name_resolve = {{ 1 if percona_server_skip_name_resolve else 0 }}
 
 max_connections = {{ percona_server_max_connections }}
+back_log = {{ percona_server_back_log }}
 wait_timeout = {{ percona_server_wait_timeout }}
 interactive_timeout = {{ percona_server_interactive_timeout }}
 
