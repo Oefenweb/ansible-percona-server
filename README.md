@@ -16,7 +16,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `percona_server_root_password`: [default: `+eswuw9uthUteFreyAqu`]: Root password **Make sure to change!**
 * `percona_server_manage_root_my_cnf`: [default: `true`]: Whether or not to manage `~root/.my.cnf`
 
-* `percona_server_install`: [xtrabackup, percona-toolkit]: Additional packages to install
+* `percona_server_install`: [xtrabackup]: Additional packages to install
 
 * `percona_server_socket`: [default: `/var/run/mysqld/mysqld.sock`]: On Unix platforms, this variable is the name of the socket file that is used for local client connections
 * `percona_server_pid_file`: [default: `/var/run/mysqld/mysqld.pid`]: The path name of the process ID (PID) file
@@ -190,6 +190,8 @@ None
 ## Recommended
 
 * `percona-client` ([see](https://github.com/Oefenweb/ansible-percona-client), when `percona_server_manage_root_my_cnf` is `false`)
+* `percona-server-tools` ([see](https://github.com/Oefenweb/ansible-percona-server-tools))
+* `percona-toolkit` ([see](https://github.com/Oefenweb/ansible-percona-toolkit))
 * `limits` ([see](https://github.com/Oefenweb/ansible-limits))
 
 #### Example(s)

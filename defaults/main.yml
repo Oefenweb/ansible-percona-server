@@ -7,7 +7,6 @@ percona_server_manage_root_my_cnf: true
 
 percona_server_install:
   - xtrabackup
-  - percona-toolkit
 
 percona_server_socket: /var/run/mysqld/mysqld.sock
 percona_server_pid_file: /var/run/mysqld/mysqld.pid
