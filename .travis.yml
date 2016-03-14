@@ -49,7 +49,7 @@ before_install:
   - sudo apt-get update -qq
 
   # Remove mysql-*
-  - sudo apt-get remove --purge 'mysql-*'
+  - sudo apt-get remove --purge --yes 'mysql-*'
 
 install:
   # Install Ansible.
