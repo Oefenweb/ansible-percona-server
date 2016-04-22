@@ -8,9 +8,6 @@ percona_server_manage_root_my_cnf: true
 percona_server_install:
   - xtrabackup
 
-percona_server_port: 3306
-percona_server_datadir: /var/lib/mysql
-
 percona_server_ssl_map: {}
 
 percona_server_databases_present: []
@@ -34,10 +31,16 @@ percona_server_users_absent_hosts:
 
 percona_server_queries: []
 
-percona_server_my_cnf:
-  - section: mysqld
+percona_server_my_cnf: []
+
+percona_server_root_cnf_presets:
+  - section: client
     options:
-      - name: port
-        value: "{{ percona_server_port }}"
-      - name: datadir
-        value: "{{ percona_server_datadir }}"
+      - name: host
+        value: localhost
+      - name: user
+        value: root
+      - name: password
+        value: "{{ percona_server_root_password }}"
+
+percona_server_root_cnf: "{{ percona_server_root_cnf_presets }}"

@@ -18,10 +18,9 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 * `percona_server_install`: [xtrabackup]: Additional packages to install
 
-* `percona_server_port`: [default: `3306`]: The number of the port on which the server listens for TCP/IP connections
-* `percona_server_datadir`: [default: `/var/lib/mysql`]: The path to the data directory
-
 * `percona_server_my_cnf`: [default: see `defaults/main.yml`]: Global configuration declarations
+
+* `percona_server_root_cnf`: [default: see `defaults/main.yml`]: Root user configuration declarations
 
 ##### SSL
 

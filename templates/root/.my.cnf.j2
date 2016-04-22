@@ -1,7 +1,17 @@
 # {{ ansible_managed }}
 
-[client]
-host = localhost
-port = {{ percona_server_port }}
-user = root
-password = '{{ percona_server_root_password }}'
+{% for item in percona_server_root_cnf %}
+
+[{{ item.section }}]
+{% for option in item.options %}
+{% if option.name is defined %}
+{% if option.value is defined %}
+{{ option.name }} = {{ option.value }}
+{% else %}
+{{ option.name }}
+{% endif %}
+{% else %}
+
+{% endif %}
+{% endfor %}
+{% endfor %}
