@@ -15,7 +15,7 @@ percona_server_user_root_cnf_preset:
       - name: user
         value: root
       - name: password
-        value: "{{ percona_server_root_password }}"
+        value: "'{{ percona_server_root_password }}'"
 percona_server_user_root_cnf: "{{ percona_server_user_root_cnf_preset }}"
 
 percona_server_install:
