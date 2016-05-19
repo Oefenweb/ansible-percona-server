@@ -11,9 +11,10 @@
     - percona-server-toolkit-udfs-lock-directory
 
 - name: toolkit udfs | install
-  shell: "mysql -e \"DROP FUNCTION IF EXISTS {{ item.function }}; CREATE FUNCTION {{ item.function }} RETURNS INTEGER SONAME '{{ item.soname }}'\" && touch {{ percona_server_lock_path }}/{{ item.soname }}"
+  shell: >
+    mysql -e "DROP FUNCTION IF EXISTS {{ item.function }}; CREATE FUNCTION {{ item.function }} RETURNS INTEGER SONAME '{{ item.soname }}'" && touch {{ percona_server_lock_path }}/{{ item.soname }}
   args:
     creates: "{{ percona_server_lock_path }}/{{ item.soname }}"
-  with_items: percona_server_toolkit_udfs
+  with_items: "{{ percona_server_toolkit_udfs }}"
   tags:
     - percona-server-toolkit-udfs-install

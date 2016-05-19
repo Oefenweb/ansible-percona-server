@@ -1,5 +1,19 @@
 # tasks file for percona-server
 ---
+- name: ib logfile | store datadir
+  mysql_variables:
+    variable: datadir
+  register: datadir_value
+  tags:
+    - percona-server-store-datadir
+    - percona-server-store-datadir-retrieve
+
+- set_fact:
+     percona_server_datadir: "{{ datadir_value.msg.0.1 if datadir_value.msg.0.1 is defined else datadir_value.msg }}"
+  tags:
+    - percona-server-store-datadir
+    - percona-server-store-datadir-set-fact
+
 - name: ib logfile | stop service
   service:
     name: mysql
@@ -12,8 +26,8 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - "{{ percona_server_datadir }}/ib_logfile0"
-    - "{{ percona_server_datadir }}/ib_logfile1"
+    - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile0"
+    - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile1"
   tags:
     - percona-server-ib-logfile-remove
 
