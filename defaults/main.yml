@@ -6,7 +6,7 @@ percona_server_root_password: '+eswuw9uthUteFreyAqu'
 
 percona_server_etc_my_cnf: []
 
-percona_server_manage_user_root_cnf: true
+percona_server_user_root_cnf_manage: true
 percona_server_user_root_cnf_preset:
   - section: client
     options:
@@ -16,7 +16,6 @@ percona_server_user_root_cnf_preset:
         value: root
       - name: password
         value: "{{ percona_server_root_password }}"
-
 percona_server_user_root_cnf: "{{ percona_server_user_root_cnf_preset }}"
 
 percona_server_install:
