@@ -30,6 +30,6 @@
     owner: root
     group: root
     mode: 0600
-  when: percona_server_manage_root_my_cnf
+  when: percona_server_manage_user_root_cnf
   tags:
     - percona-server-configure-root-my-cnf

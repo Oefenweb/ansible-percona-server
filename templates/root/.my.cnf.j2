@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 
-{% for item in percona_server_root_cnf %}
+{% for item in percona_server_user_root_cnf %}
 
 [{{ item.section }}]
 {% for option in item.options %}

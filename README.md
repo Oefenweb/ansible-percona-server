@@ -1,6 +1,6 @@
 ## percona-server
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-percona-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-percona-server) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-percona--server-blue.svg)](https://galaxy.ansible.com/list#/roles/4882)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-percona-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-percona-server) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-percona--server-blue.svg)](https://galaxy.ansible.com/tersmitten/percona-server)
 
 Set up a [percona-server](https://www.percona.com/software/mysql-database/percona-server) server in Debian-like systems.
 
@@ -14,13 +14,13 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 * `percona_server_version`: [default: `5.5`]: Version to install
 * `percona_server_root_password`: [default: `+eswuw9uthUteFreyAqu`]: Root password **Make sure to change!**
-* `percona_server_manage_root_my_cnf`: [default: `true`]: Whether or not to manage `~root/.my.cnf`
 
 * `percona_server_install`: [xtrabackup]: Additional packages to install
 
-* `percona_server_my_cnf`: [default: see `defaults/main.yml`]: Global configuration declarations
+* `percona_server_etc_my_cnf`: [default: see `defaults/main.yml`]: Global configuration declarations
 
-* `percona_server_root_cnf`: [default: see `defaults/main.yml`]: Root user configuration declarations
+* `percona_server_manage_user_root_cnf`: [default: `true`]: Whether or not to manage `~root/.my.cnf`
+* `percona_server_user_root_cnf`: [default: see `defaults/main.yml`]: Root user configuration declarations
 
 ##### SSL
 
@@ -150,7 +150,7 @@ None
       server-key:
         src: ../../../files/percona-server/etc/mysql/server-key.pem
         dest: /etc/mysql/server-key.pem
-    percona_server_my_cnf:
+    percona_server_etc_my_cnf:
       - section: client
         options:
           - name: ssl_cert
@@ -184,7 +184,7 @@ None
         hosts:
           - '%'
 
-    percona_server_my_cnf:
+    percona_server_etc_my_cnf:
       - section: mysqld
         options:
           - name: server_id
@@ -209,7 +209,7 @@ None
         hosts:
           - '%'
 
-    percona_server_my_cnf:
+    percona_server_etc_my_cnf:
       - section: mysqld
         options:
           - name: server_id
@@ -244,7 +244,7 @@ None
         hosts:
           - '%'
 
-    percona_server_my_cnf:
+    percona_server_etc_my_cnf:
       - section: mysqld
         options:
           - name: server_id
@@ -279,7 +279,7 @@ None
         hosts:
           - '%'
 
-    percona_server_my_cnf:
+    percona_server_etc_my_cnf:
       - section: mysqld
         options:
           - name: server_id

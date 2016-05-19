@@ -3,7 +3,21 @@
 percona_server_version: 5.5
 
 percona_server_root_password: '+eswuw9uthUteFreyAqu'
-percona_server_manage_root_my_cnf: true
+
+percona_server_etc_my_cnf: []
+
+percona_server_manage_user_root_cnf: true
+percona_server_user_root_cnf_preset:
+  - section: client
+    options:
+      - name: host
+        value: localhost
+      - name: user
+        value: root
+      - name: password
+        value: "{{ percona_server_root_password }}"
+
+percona_server_user_root_cnf: "{{ percona_server_user_root_cnf_preset }}"
 
 percona_server_install:
   - xtrabackup
@@ -30,17 +44,3 @@ percona_server_users_absent_hosts:
   - '%'
 
 percona_server_queries: []
-
-percona_server_my_cnf: []
-
-percona_server_root_cnf_presets:
-  - section: client
-    options:
-      - name: host
-        value: localhost
-      - name: user
-        value: root
-      - name: password
-        value: "{{ percona_server_root_password }}"
-
-percona_server_root_cnf: "{{ percona_server_root_cnf_presets }}"
