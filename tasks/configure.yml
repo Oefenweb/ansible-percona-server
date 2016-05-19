@@ -7,7 +7,7 @@
     owner: "{{ item.value.owner | default('root') }}"
     group: "{{ item.value.group | default('mysql') }}"
     mode: "{{ item.value.mode | default('0640') }}"
-  with_dict: percona_server_ssl_map
+  with_dict: "{{ percona_server_ssl_map }}"
   notify: restart percona-server
   tags:
     - percona-server-configure-copy-certificate-files

@@ -6,7 +6,7 @@
     question: "{{ item.question }}"
     value: "{{ item.value }}"
     vtype: "{{ item.vtype }}"
-  with_items: percona_server_debconf_selections
+  with_items: "{{ percona_server_debconf_selections }}"
   changed_when: false
   tags:
     - percona-server-install-configure-debconf
@@ -15,7 +15,7 @@
   apt:
     name: "{{ item }}"
     state: latest
-  with_items: percona_server_dependencies
+  with_items: "{{ percona_server_dependencies }}"
   tags:
     - percona-server-install-dependencies
 
@@ -23,6 +23,6 @@
   apt:
     name: "{{ item }}"
     state: latest
-  with_items: percona_server_install
+  with_items: "{{ percona_server_install }}"
   tags:
     - percona-server-install-additional

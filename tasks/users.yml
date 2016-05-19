@@ -9,7 +9,7 @@
     state: present
   with_nested:
     - "{{ percona_server_users_present | selectattr('hosts', 'undefined') | list }}"
-    - percona_server_users_present_hosts
+    - "{{ percona_server_users_present_hosts }}"
   tags:
     - percona-server-users-create
     - percona-server-users-create-default-hosts
@@ -35,7 +35,7 @@
     state: absent
   with_nested:
     - "{{ percona_server_users_absent | selectattr('hosts', 'undefined') | list }}"
-    - percona_server_users_absent_hosts
+    - "{{ percona_server_users_absent_hosts }}"
   tags:
     - percona-server-users-drop
     - percona-server-users-drop-default-hosts
