@@ -45,10 +45,6 @@ branches:
 
 matrix:
   allow_failures:
-    # See https://github.com/ansible/ansible-modules-core/commit/fc4c6594003094cd2b8f6ee92847d03c69205fc5
-    - env: ANSIBLE_VERSION=2.0.0.2
-    - env: ANSIBLE_VERSION=2.0.0.1
-    - env: ANSIBLE_VERSION=2.0.0.0
     # See https://github.com/ansible/ansible/commit/b35e1a664d574efca2a4f8022fef447bf3e1661e
     - env: ANSIBLE_VERSION=1.6.7
 
