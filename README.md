@@ -18,6 +18,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `percona_server_install`: [xtrabackup]: Additional packages to install
 
 * `percona_server_etc_my_cnf`: [default: see `defaults/main.yml`]: Global configuration declarations
+* `percona_server_etc_my_cnf_includedir`: [optional]: Used to include other option files from this directory (e.g. `/etc/mysql/conf.d/`)
 
 * `percona_server_manage_user_root_cnf`: [default: `true`]: Whether or not to manage `~root/.my.cnf`
 * `percona_server_user_root_cnf`: [default: see `defaults/main.yml`]: Root user configuration declarations

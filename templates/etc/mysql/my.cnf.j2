@@ -16,4 +16,6 @@
 {% endfor %}
 {% endfor %}
 
-!includedir /etc/mysql/conf.d/
+{% if percona_server_etc_my_cnf_includedir is defined %}
+!includedir {{ percona_server_etc_my_cnf_includedir }}
+{% endif %}
