@@ -15,7 +15,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `percona_server_version`: [default: `5.5`]: Version to install
 * `percona_server_root_password`: [default: `+eswuw9uthUteFreyAqu`]: Root password **Make sure to change!**
 
-* `percona_server_install`: [xtrabackup]: Additional packages to install
+* `percona_server_install`: [`['xtrabackup']`]: Additional packages to install
 
 * `percona_server_etc_my_cnf`: [default: `[]`]: Global configuration declarations
 * `percona_server_etc_my_cnf_includedir`: [optional]: Used to include other option files from this directory (e.g. `/etc/mysql/conf.d/`)
