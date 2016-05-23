@@ -55,6 +55,12 @@
     - percona-server
     - percona-server-users
 
+- include: plugins.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-plugins
+
 - include: queries.yml
   tags:
     - configuration

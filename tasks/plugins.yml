@@ -1,0 +1,29 @@
+# tasks file for percona-server
+---
+- name: plugins | create (lock) directory
+  file:
+    path: "{{ percona_server_lock_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - percona-server-plugins-lock-directory
+
+- name: plugins | uninstall
+  shell: >
+    mysql -e "UNINSTALL PLUGIN {{ item.name }};" && rm {{ percona_server_lock_path }}/{{ item.name | lower }}
+  args:
+    removes: "{{ percona_server_lock_path }}/{{ item.name | lower }}"
+  with_items: "{{ percona_server_plugins_absent }}"
+  tags:
+    - percona-server-plugins-uninstall
+
+- name: plugins | install
+  shell: >
+    mysql -e "INSTALL PLUGIN {{ item.name }} SONAME '{{ item.soname }}';" && touch {{ percona_server_lock_path }}/{{ item.name | lower }}
+  args:
+    creates: "{{ percona_server_lock_path }}/{{ item.name | lower }}"
+  with_items: "{{ percona_server_plugins_present }}"
+  tags:
+    - percona-server-plugins-install
