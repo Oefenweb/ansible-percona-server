@@ -30,13 +30,6 @@
     - percona-server
     - percona-server-configure
 
-- include: ib-logfile.yml
-  tags:
-    - configuration
-    - percona-server
-    - percona-server-ib-logfile
-  when: mysqld_installed.rc != 0
-
 - include: toolkit-udfs.yml
   tags:
     - configuration
@@ -66,6 +59,13 @@
     - configuration
     - percona-server
     - percona-server-queries
+
+- include: ib-logfile.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-ib-logfile
+  when: mysqld_installed.rc != 0
 
 - name: start and enable service
   service:
