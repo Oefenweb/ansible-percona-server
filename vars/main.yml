@@ -37,7 +37,7 @@ percona_server_toolkit_udfs:
     soname: libmurmur_udf.so
 
 # See https://www.percona.com/doc/percona-server/5.6/diagnostics/response_time_distribution.html#installing-the-plugins
-percona_server_query_response_time_plugin_preset:
+percona_server_plugins_query_response_time_plugin_preset:
   - name: QUERY_RESPONSE_TIME_AUDIT
     soname: query_response_time.so
   - name: QUERY_RESPONSE_TIME
