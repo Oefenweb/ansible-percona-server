@@ -26,8 +26,6 @@ percona_server_dependencies:
   - "percona-server-server-{{ percona_server_version }}"
   - python-mysqldb
 
-percona_server_conf_d_path: /etc/mysql/conf.d
-
 percona_server_lock_path: /var/lib/ansible/percona-server/lock
 
 percona_server_toolkit_udfs:
@@ -37,3 +35,14 @@ percona_server_toolkit_udfs:
     soname: libfnv_udf.so
   - function: murmur_hash
     soname: libmurmur_udf.so
+
+# See https://www.percona.com/doc/percona-server/5.6/diagnostics/response_time_distribution.html#installing-the-plugins
+percona_server_query_response_time_plugin_preset:
+  - name: QUERY_RESPONSE_TIME_AUDIT
+    soname: query_response_time.so
+  - name: QUERY_RESPONSE_TIME
+    soname: query_response_time.so
+  - name: QUERY_RESPONSE_TIME_READ
+    soname: query_response_time.so
+  - name: QUERY_RESPONSE_TIME_WRITE
+    soname: query_response_time.so

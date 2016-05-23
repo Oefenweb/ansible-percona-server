@@ -33,6 +33,15 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `percona_server_ssl_map.key.group`: [optional, default `mysql`]:The name of the group that should own the file
 * `percona_server_ssl_map.key.mode`: [optional, default `0640`]: The mode of the file
 
+##### Plugins
+
+* `percona_server_databases_present`: [default: `[]`]: Plugins to `INSTALL`
+* `percona_server_databases_present.{n}.name`: [required]: The name of the plugin (e.g. `QUERY_RESPONSE_TIME_AUDIT`)
+* `percona_server_databases_present.{n}.soname`: [required]: The base name of the shared library file that contains the code that implements the plugin (e.g. `query_response_time.so`)
+
+* `percona_server_databases_absent`: [default: `[]`]: Plugins to `UNINSTALL`
+* `percona_server_databases_absent.{n}.name`: [required]: The name of the plugin
+
 ##### Databases
 
 * `percona_server_databases_present`: [default: `[]`]: Databases to `CREATE`
