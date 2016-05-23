@@ -23,6 +23,9 @@ percona_server_install:
 
 percona_server_ssl_map: {}
 
+percona_server_plugins_present: []
+percona_server_plugins_absent: []
+
 percona_server_databases_present: []
 percona_server_databases_absent:
   # Remove test database
