@@ -2,8 +2,8 @@
 ---
 - name: repository | add public key
   apt_key:
-    id: CD2EFD2A
-    url: http://www.percona.com/downloads/RPM-GPG-KEY-percona
+    id: 9334A25F8507EFA5
+    keyserver: keyserver.ubuntu.com
     state: present
   tags:
     - percona-server-repository-public-key
