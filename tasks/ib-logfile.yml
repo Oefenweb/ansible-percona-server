@@ -1,6 +1,6 @@
 # tasks file for percona-server
 ---
-- name: ib logfile | store datadir
+- name: ib logfile | get datadir
   mysql_variables:
     variable: datadir
   register: datadir_value
@@ -8,7 +8,9 @@
     - percona-server-store-datadir
     - percona-server-store-datadir-retrieve
 
-- set_fact:
+# Needed because of Ansible 1 / 2 differences
+- name: ib logfile | store datadir
+  set_fact:
      percona_server_datadir: "{{ datadir_value.msg.0.1 if datadir_value.msg.0.1 is defined else datadir_value.msg }}"
   tags:
     - percona-server-store-datadir
@@ -18,6 +20,7 @@
   service:
     name: mysql
     state: stopped
+  when: mysqld_installed.rc != 0
   tags:
     - percona-server-ib-logfile-stop-service
 
@@ -28,6 +31,7 @@
   with_items:
     - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile0"
     - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile1"
+  when: mysqld_installed.rc != 0
   tags:
     - percona-server-ib-logfile-remove
 
@@ -35,5 +39,6 @@
   service:
     name: mysql
     state: started
+  when: mysqld_installed.rc != 0
   tags:
     - percona-server-ib-logfile-start-service
