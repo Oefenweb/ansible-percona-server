@@ -41,4 +41,4 @@
     percona_server_queries:
       - database: mysql
         queries:
-          - "INSERT IGNORE INTO host(host,db) VALUES ('test','test')"
+          - "INSERT IGNORE INTO user (Host, User, Password, ssl_type, ssl_cipher, x509_issuer, x509_subject) VALUES ('localhost', 'test', password('test'), '', '', '', '')"
