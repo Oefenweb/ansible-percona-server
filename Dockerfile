@@ -17,4 +17,4 @@ RUN rm -rf $HOME/.cache
 # provision
 COPY . /etc/ansible/roles/ansible-role
 WORKDIR /etc/ansible/roles/ansible-role
-RUN ansible-playbook -i tests/inventory tests/test.yml --connection=local -vv
+RUN ansible-playbook -i tests/inventory tests/test.yml --connection=local
