@@ -19,6 +19,14 @@
   tags:
     - percona-server-install-dependencies
 
+- name: install | dependencies | check service
+  service:
+    name: mysql
+    state: started
+  tags:
+    - percona-server-install-dependencies
+    - percona-server-install-dependencies-check
+
 - name: install | additional
   apt:
     name: "{{ item }}"
