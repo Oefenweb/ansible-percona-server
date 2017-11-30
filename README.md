@@ -7,6 +7,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 #### Requirements
 
 * `python-mysqldb` (will be installed)
+* `tee` (will not be installed)
 
 #### Variables
 
@@ -73,6 +74,14 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `percona_server_queries`: [default: `[]`]: Query declarations
 * `percona_server_queries.{n}.database`: [required]: Name of the database to execute queries on
 * `percona_server_queries.{n}.queries`: [default: `[]`]: A list of queries to execute
+
+##### Timezone info
+
+* `percona_server_zoneinfo_manage`: [default: `false`]: Whether or not to load time zone tables
+* `percona_server_zoneinfo_tz_dir`: [default: `/usr/share/zoneinfo`]: The zoneinfo directory path name
+* `percona_server_zoneinfo_tz_file`: [default: `''`]: The path of a single time zone file (e.g. `/usr/share/zoneinfo/Europe/Amsterdam`)
+* `percona_server_zoneinfo_tz_name`: [default: `''`]: A time zone name (e.g. `Europe/Amsterdam`)
+* `percona_server_zoneinfo_command`: [default: `mysql_tzinfo_to_sql {{ percona_server_zoneinfo_tz_dir }}`]: The zoneinfo command to generate SQL (e.g. `mysql_tzinfo_to_sql {{ percona_server_zoneinfo_tz_file }} {{ percona_server_zoneinfo_tz_name }}`, `mysql_tzinfo_to_sql --leap {{ {{ percona_server_zoneinfo_tz_file }} }}`)
 
 ## Dependencies
 

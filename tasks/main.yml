@@ -36,6 +36,13 @@
     - percona-server
     - percona-server-toolkit-udfs
 
+- include: zoneinfo.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-zoneinfo
+  when: percona_server_zoneinfo_manage | bool
+
 - include: databases.yml
   tags:
     - configuration
