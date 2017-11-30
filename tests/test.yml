@@ -42,3 +42,5 @@
       - database: mysql
         queries:
           - "INSERT IGNORE INTO user (Host, User, Password, ssl_type, ssl_cipher, x509_issuer, x509_subject) VALUES ('localhost', 'test', password('test'), '', '', '', '')"
+
+    percona_server_zoneinfo_manage: true
