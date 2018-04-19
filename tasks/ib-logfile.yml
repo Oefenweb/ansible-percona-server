@@ -8,10 +8,9 @@
     - percona-server-store-datadir
     - percona-server-store-datadir-retrieve
 
-# Needed because of Ansible 1 / 2 differences
 - name: ib logfile | store datadir
   set_fact:
-     percona_server_datadir: "{{ datadir_value.msg.0.1 if datadir_value.msg.0.1 is defined else datadir_value.msg }}"
+     percona_server_datadir: "{{ datadir_value.msg }}"
   tags:
     - percona-server-store-datadir
     - percona-server-store-datadir-set-fact

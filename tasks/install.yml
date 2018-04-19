@@ -19,6 +19,23 @@
   tags:
     - percona-server-install-dependencies
 
+- block:
+  - name: install | service | stop
+    service:
+      name: mysql
+      state: stopped
+
+  - name: install | service | cleanup
+    file:
+      path: "{{ item }}"
+      state: absent
+    with_items:
+      - /etc/mysql/percona-server.conf.d/mysqld_safe.cnf
+      - /etc/mysql/percona-server.conf.d/mysqld.cnf
+      - /etc/mysql/percona-server.cnf
+
+  when: mysqld_installed.rc != 0
+
 - name: install | dependencies | check service
   service:
     name: mysql

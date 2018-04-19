@@ -30,49 +30,49 @@
     - percona-server
     - percona-server-configure
 
-- include: toolkit-udfs.yml
-  tags:
-    - configuration
-    - percona-server
-    - percona-server-toolkit-udfs
-
-- include: zoneinfo.yml
-  tags:
-    - configuration
-    - percona-server
-    - percona-server-zoneinfo
-  when: percona_server_zoneinfo_manage | bool
-
-- include: databases.yml
-  tags:
-    - configuration
-    - percona-server
-    - percona-server-databases
-
-- include: users.yml
-  tags:
-    - configuration
-    - percona-server
-    - percona-server-users
-
-- include: plugins.yml
-  tags:
-    - configuration
-    - percona-server
-    - percona-server-plugins
-
-- include: queries.yml
-  tags:
-    - configuration
-    - percona-server
-    - percona-server-queries
-
-- include: ib-logfile.yml
-  tags:
-    - configuration
-    - percona-server
-    - percona-server-ib-logfile
-
+#- include: toolkit-udfs.yml
+#  tags:
+#    - configuration
+#    - percona-server
+#    - percona-server-toolkit-udfs
+#
+#- include: zoneinfo.yml
+#  tags:
+#    - configuration
+#    - percona-server
+#    - percona-server-zoneinfo
+#  when: percona_server_zoneinfo_manage | bool
+#
+#- include: databases.yml
+#  tags:
+#    - configuration
+#    - percona-server
+#    - percona-server-databases
+#
+#- include: users.yml
+#  tags:
+#    - configuration
+#    - percona-server
+#    - percona-server-users
+#
+#- include: plugins.yml
+#  tags:
+#    - configuration
+#    - percona-server
+#    - percona-server-plugins
+#
+#- include: queries.yml
+#  tags:
+#    - configuration
+#    - percona-server
+#    - percona-server-queries
+#
+#- include: ib-logfile.yml
+#  tags:
+#    - configuration
+#    - percona-server
+#    - percona-server-ib-logfile
+#
 - name: start and enable service
   service:
     name: mysql

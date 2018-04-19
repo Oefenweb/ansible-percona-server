@@ -1,5 +1,18 @@
 # tasks file for percona-server
 ---
+- name: repository | install | dependencies
+  apt:
+    name: "{{ item }}"
+    state: "{{ apt_install_state | default('latest') }}"
+    update_cache: true
+    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
+  with_items:
+    - dirmngr
+  when: ansible_distribution == 'Debian' and ansible_distribution_version | version_compare('9.0', '>=')
+  tags:
+    - percona-server-repository-install
+    - percona-server-repository-install-dependencies
+
 - name: repository | add public key
   apt_key:
     id: 9334A25F8507EFA5
