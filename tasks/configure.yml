@@ -29,7 +29,7 @@
       - /etc/mysql/percona-server.conf.d
     tags:
       - percona-server-configure-first-run-cleanup
-  when: mysqld_installed.rc != 0
+  when: _mysqld_installed.rc != 0
   tags:
     - percona-server-configure-first-run
 
@@ -49,10 +49,11 @@
     service:
       name: mysql
       state: started
-  when: mysqld_installed.rc != 0
+    tags:
+      - percona-server-configure-first-run-service-start
+  when: _mysqld_installed.rc != 0
   tags:
     - percona-server-configure-first-run
-    - percona-server-configure-first-run-service-start
 
 - name: configure | update (root) configuration file
   template:
