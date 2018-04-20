@@ -15,11 +15,18 @@
     - percona-server-store-datadir
     - percona-server-store-datadir-set-fact
 
+- name: ib logfile | set InnoDB shutdown mode
+  mysql_variables:
+    variable: innodb_fast_shutdown
+    value: "1"
+  tags:
+    - percona-server-ib-logfile-innodb-fast-shutdown
+    - percona-server-ib-logfile-innodb-fast-shutdown-set
+
 - name: ib logfile | stop service
   service:
     name: mysql
     state: stopped
-  when: mysqld_installed.rc != 0
   tags:
     - percona-server-ib-logfile-stop-service
 
@@ -30,7 +37,6 @@
   with_items:
     - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile0"
     - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile1"
-  when: mysqld_installed.rc != 0
   tags:
     - percona-server-ib-logfile-remove
 
@@ -38,6 +44,5 @@
   service:
     name: mysql
     state: started
-  when: mysqld_installed.rc != 0
   tags:
     - percona-server-ib-logfile-start-service
