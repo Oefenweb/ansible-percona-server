@@ -5,3 +5,5 @@
   become: true
   roles:
     - ../../
+  vars:
+    percona_server_version: 5.7
