@@ -14,14 +14,23 @@ percona_server_repositories:
     component: main
 
 percona_server_debconf_selections:
- - name: "percona-server-server-{{ percona_server_version }}"
-   question: percona-server-server/root_password
-   value: "{{ percona_server_root_password }}"
-   vtype: password
- - name: "percona-server-server-{{ percona_server_version }}"
-   question: percona-server-server/root_password_again
-   value: "{{ percona_server_root_password }}"
-   vtype: password
+  - name: "percona-server-server-{{ percona_server_version }}"
+    question: percona-server-server/root_password
+    value: "{{ percona_server_root_password }}"
+    vtype: password
+  - name: "percona-server-server-{{ percona_server_version }}"
+    question: percona-server-server/root_password_again
+    value: "{{ percona_server_root_password }}"
+    vtype: password
+  # 5.7
+  - name: "percona-server-server-{{ percona_server_version }}"
+    question: "percona-server-server-{{ percona_server_version }}/root-pass"
+    value: "{{ percona_server_root_password }}"
+    vtype: password
+  - name: "percona-server-server-{{ percona_server_version }}"
+    question: "percona-server-server-{{ percona_server_version }}/re-root-pass"
+    value: "{{ percona_server_root_password }}"
+    vtype: password
 
 percona_server_dependencies:
   - "percona-server-client-{{ percona_server_version }}"
