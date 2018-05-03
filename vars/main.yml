@@ -57,3 +57,9 @@ percona_server_plugins_query_response_time_plugin_preset:
     soname: query_response_time.so
   - name: QUERY_RESPONSE_TIME_WRITE
     soname: query_response_time.so
+
+percona_server_libmysqlclient_map:
+  5.1: libperconaserverclient16
+  5.5: libperconaserverclient18
+  5.6: libperconaserverclient18.1
+  5.7: libperconaserverclient20
