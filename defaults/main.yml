@@ -4,6 +4,8 @@ percona_server_version: 5.6
 
 percona_server_root_password: '+eswuw9uthUteFreyAqu'
 
+percona_server_use_legacy_auth_method: false
+
 percona_server_etc_my_cnf: []
 
 percona_server_user_root_cnf_manage: true

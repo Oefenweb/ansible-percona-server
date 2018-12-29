@@ -23,6 +23,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 * `percona_server_user_root_cnf_manage`: [default: `true`]: Whether or not to manage `~root/.my.cnf`
 * `percona_server_user_root_cnf`: [default: `percona_server_user_root_cnf_preset`, see `defaults/main.yml`]: Root user configuration declarations
+* `percona_server_use_legacy_auth_method`: [default: `false`]: Use legacy authentication method **_(only Percona Server 8.0)_**
 
 ##### SSL
 
