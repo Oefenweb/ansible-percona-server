@@ -7,7 +7,7 @@ percona_server_versions_supported:
   - '8.0'
 
 percona_server_version_deb_prefix: "-{{ percona_server_version }}"
-percona_server_version_deb: "{{ '' if percona_server_version == 8.0 else percona_server_version_deb_prefix }}"
+percona_server_version_deb: "{{ '' if percona_server_version is version('8.0', '==') else percona_server_version_deb_prefix }}"
 
 percona_server_repositories_5:
   - type: deb
@@ -31,7 +31,7 @@ percona_server_repositories_8:
     url: "http://repo.percona.com/tools/apt {{ ansible_lsb.codename }}"
     component: main
 
-percona_server_repositories: "{{ percona_server_repositories_8 if percona_server_version == 8.0 else percona_server_repositories_5 }}"
+percona_server_repositories: "{{ percona_server_repositories_8 if percona_server_version is version('8.0', '==') else percona_server_repositories_5 }}"
 
 percona_server_debconf_selections:
   - name: "percona-server-server{{ percona_server_version_deb }}"
