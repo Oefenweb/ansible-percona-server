@@ -1,6 +1,7 @@
 ## percona-server
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-percona-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-percona-server) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-percona--server-blue.svg)](https://galaxy.ansible.com/Oefenweb/percona-server)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-percona-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-percona-server) 
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-percona--server-blue.svg)](https://galaxy.ansible.com/Oefenweb/percona-server)
 
 Set up a [percona-server](https://www.percona.com/software/mysql-database/percona-server) server in Debian-like systems.
 
