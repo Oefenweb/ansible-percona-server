@@ -13,16 +13,14 @@
 
 - name: install | dependencies
   apt:
-    name: "{{ item }}"
+    name: "{{ percona_server_dependencies }}"
     state: "{{ apt_install_state | default('latest') }}"
-  with_items: "{{ percona_server_dependencies }}"
   tags:
     - percona-server-install-dependencies
 
 - name: install | additional
   apt:
-    name: "{{ item }}"
+    name: "{{ percona_server_install }}"
     state: "{{ apt_install_state | default('latest') }}"
-  with_items: "{{ percona_server_install }}"
   tags:
     - percona-server-install-additional

@@ -20,5 +20,5 @@ galaxy_info:
   galaxy_tags:
     - system
     - database
-    - database:sql
+    - sql
 dependencies: []
