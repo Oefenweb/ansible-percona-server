@@ -88,6 +88,10 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 * `percona_server_toolkit_udfs_manage`: [default: `true`]: Whether or not to install recommended hash functions ([see](https://www.percona.com/doc/percona-server/LATEST/management/udf_percona_toolkit.html))
 
+##### Restart after configuration change
+
+* `percona_server_enable_handler_restart`: [default: `true`]: Whether or not to restart mysql service after a configuration change, useful for production environments
+
 ## Dependencies
 
 None

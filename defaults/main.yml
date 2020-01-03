@@ -54,3 +54,4 @@ percona_server_zoneinfo_tz_name: ''
 percona_server_zoneinfo_command: "mysql_tzinfo_to_sql {{ percona_server_zoneinfo_tz_dir }}"
 
 percona_server_toolkit_udfs_manage: true
+percona_server_enable_handler_restart: true
