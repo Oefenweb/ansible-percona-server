@@ -1,6 +1,7 @@
 # meta file for percona-server
 ---
 galaxy_info:
+  role_name: percona-server
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up percona-server server in Debian-like systems
