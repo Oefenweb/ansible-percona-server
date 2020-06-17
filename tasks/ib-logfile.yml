@@ -3,14 +3,14 @@
 - name: ib logfile | get datadir
   mysql_variables:
     variable: datadir
-  register: datadir_value
+  register: _datadir_value
   tags:
     - percona-server-store-datadir
     - percona-server-store-datadir-retrieve
 
 - name: ib logfile | store datadir
   set_fact:
-    percona_server_datadir: "{{ datadir_value.msg }}"
+    percona_server_datadir: "{{ _datadir_value.msg }}"
   tags:
     - percona-server-store-datadir
     - percona-server-store-datadir-set-fact
