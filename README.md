@@ -7,7 +7,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 #### Requirements
 
-* `python-mysqldb` (will be installed)
+* `python-mysqldb(2|3)` (will be installed)
 * `tee` (will not be installed)
 
 #### Variables
