@@ -19,7 +19,7 @@ percona_server_user_root_cnf_preset:
 percona_server_user_root_cnf: "{{ percona_server_user_root_cnf_preset }}"
 
 percona_server_install:
-  - xtrabackup
+  - "percona-xtrabackup{{ '-80' if percona_server_version is version('8', '>=') else '-24' if percona_server_version is version('5.7', '>=') else '' }}"
 
 percona_server_ssl_map: {}
 
