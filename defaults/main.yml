@@ -1,6 +1,6 @@
 # defaults file for percona-server
 ---
-percona_server_version: 5.6
+percona_server_version: 5.7
 
 percona_server_root_password: '+eswuw9uthUteFreyAqu'
 
