@@ -1,0 +1,40 @@
+# vars file for percona-server
+---
+percona_server_databases_present:
+  - name: ipsum
+  - name: dolor
+
+percona_server_databases_absent:
+  - name: sit
+  - name: amet
+
+percona_server_users_present_hosts:
+  - 'localhost'
+  - '%'
+
+percona_server_users_present:
+  - name: consectetur
+    password: 'elit'
+    privs:
+      - 'ipsum.*:ALL'
+      - 'dolor.*:ALL'
+  - name: adipiscing
+    password: 'lacus'
+    privs:
+      - 'ipsum.*:SELECT'
+      - 'dolor.*:INSERT,UPDATE'
+    hosts:
+      - '%'
+
+percona_server_users_absent:
+  - name: urna
+  - name: vehicula
+    hosts:
+      - '%'
+
+percona_server_queries:
+  - database: mysql
+    queries:
+      - "INSERT IGNORE INTO user (Host, User, Password, ssl_type, ssl_cipher, x509_issuer, x509_subject) VALUES ('localhost', 'test', password('test'), '', '', '', '')"
+
+percona_server_zoneinfo_manage: true
