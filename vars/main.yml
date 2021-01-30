@@ -7,10 +7,10 @@ percona_server_versions_supported:
 
 percona_server_repositories:
   - type: deb
-    url: "http://repo.percona.com/apt {{ ansible_lsb.codename }}"
+    url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
     component: main
   - type: deb-src
-    url: "http://repo.percona.com/apt {{ ansible_lsb.codename }}"
+    url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
     component: main
 
 percona_server_debconf_selections:
@@ -31,6 +31,10 @@ percona_server_debconf_selections:
     question: "percona-server-server-{{ percona_server_version }}/re-root-pass"
     value: "{{ percona_server_root_password }}"
     vtype: password
+
+percona_server_dependencies_pre:
+  - software-properties-common
+  - dirmngr
 
 percona_server_dependencies:
   - "percona-server-client-{{ percona_server_version }}"
