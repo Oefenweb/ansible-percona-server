@@ -1,4 +1,4 @@
-# vars file for percona-server
+# vars file
 ---
 percona_server_databases_present:
   - name: ipsum

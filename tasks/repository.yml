@@ -1,4 +1,4 @@
-# tasks file for percona-server
+# tasks file
 ---
 - name: repository | install | dependencies (pre)
   apt:

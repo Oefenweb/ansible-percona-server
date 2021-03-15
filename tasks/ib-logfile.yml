@@ -1,4 +1,4 @@
-# tasks file for percona-server
+# tasks file
 ---
 - name: ib logfile | get datadir
   mysql_variables:

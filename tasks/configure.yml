@@ -1,4 +1,4 @@
-# tasks file for percona-server
+# tasks file
 ---
 - name: configure | copy certificate files
   copy:

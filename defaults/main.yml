@@ -1,4 +1,4 @@
-# defaults file for percona-server
+# defaults file
 ---
 percona_server_version: 5.7
 

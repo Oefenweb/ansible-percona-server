@@ -1,6 +1,7 @@
-# meta file for percona-server
+# meta file
 ---
 galaxy_info:
+  namespace: oefenweb
   role_name: percona-server
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
