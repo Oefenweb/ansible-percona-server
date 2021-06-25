@@ -2,7 +2,7 @@
 ---
 galaxy_info:
   namespace: oefenweb
-  role_name: percona-server
+  role_name: percona_server
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up percona-server server in Debian-like systems
