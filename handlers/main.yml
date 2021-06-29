@@ -3,5 +3,5 @@
 - name: restart percona-server
   service:
     name: mysql
-    state: restarted
-  when: service_default_state | default('started') == 'started'
+    state: "{{ percona_restart_handler_state }}"
+  when: percona_server_enable_handler_restart and service_default_state | default('started' == 'started')
