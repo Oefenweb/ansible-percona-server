@@ -14,6 +14,7 @@
   shell: >
     {{ percona_server_zoneinfo_command }} | tee {{ percona_server_lock_path }}/zoneinfo.sql | mysql --database=mysql
   args:
+    executable: /bin/bash
     creates: "{{ percona_server_lock_path }}/zoneinfo.sql"
   tags:
     - percona-server-zoneinfo-install
