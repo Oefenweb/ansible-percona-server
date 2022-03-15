@@ -11,6 +11,19 @@
   tags:
     - percona-server-install-configure-debconf
 
+- name: install | configure debconf for version 8.0 (Use Legacy Authentication Method)
+  debconf:
+    name: 'percona-server-server'
+    question: 'percona-server-server/default-auth-override'
+    value: 'Use Legacy Authentication Method (Retain MySQL 5.x Compatibility)'
+    vtype: select
+  changed_when: false
+  when:
+    - percona_server_version is version('8.0', '==')
+    - percona_server_use_legacy_auth_method
+  tags:
+    - percona-server-install-configure-debconf
+
 - name: install | dependencies
   apt:
     name: "{{ percona_server_dependencies }}"
