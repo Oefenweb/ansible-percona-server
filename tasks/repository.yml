@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: repository | install | dependencies (pre)
-  apt:
+  ansible.builtin.apt:
     name: "{{ percona_server_dependencies_pre }}"
     state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
@@ -11,7 +11,7 @@
     - percona-server-repository-install-dependencies
 
 - name: repository | add public key
-  apt_key:
+  ansible.builtin.apt_key:
     id: 9334A25F8507EFA5
     keyserver: keyserver.ubuntu.com
     state: present
@@ -19,7 +19,7 @@
     - percona-server-repository-public-key
 
 - name: repository | add
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ item.type }} {{ item.url }} {{ item.component }}"
     state: present
     update_cache: true
@@ -28,7 +28,7 @@
     - percona-server-repository-add
 
 - name: repository | apt-pin packages
-  copy:
+  ansible.builtin.copy:
     src: etc/apt/preferences.d/00percona.pref
     dest: /etc/apt/preferences.d/00percona.pref
     owner: root

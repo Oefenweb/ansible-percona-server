@@ -1,7 +1,8 @@
 # tasks file
 ---
 - name: first-run | check
-  shell: >
+  ansible.builtin.shell: >
+    set -o pipefail
     dpkg-query -W -f='${Status}' percona-server-server{{ percona_server_version_deb }} | grep -q 'install ok installed'
   args:
     executable: /bin/bash

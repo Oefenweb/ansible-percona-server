@@ -75,7 +75,7 @@
     - percona-server-ib-logfile
 
 - name: start and enable service
-  service:
+  ansible.builtin.service:
     name: mysql
     state: "{{ service_default_state | default('started') }}"
     enabled: "{{ service_default_enabled | default(true) | bool }}"

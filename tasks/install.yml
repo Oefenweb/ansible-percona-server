@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: install | configure debconf
-  debconf:
+  ansible.builtin.debconf:
     name: "{{ item.name }}"
     question: "{{ item.question }}"
     value: "{{ item.value }}"
@@ -12,7 +12,7 @@
     - percona-server-install-configure-debconf
 
 - name: install | configure debconf for version 8.0 (Use Legacy Authentication Method)
-  debconf:
+  ansible.builtin.debconf:
     name: 'percona-server-server'
     question: 'percona-server-server/default-auth-override'
     value: 'Use Legacy Authentication Method (Retain MySQL 5.x Compatibility)'
@@ -25,14 +25,14 @@
     - percona-server-install-configure-debconf
 
 - name: install | dependencies
-  apt:
+  ansible.builtin.apt:
     name: "{{ percona_server_dependencies }}"
     state: "{{ apt_install_state | default('latest') }}"
   tags:
     - percona-server-install-dependencies
 
 - name: install | additional
-  apt:
+  ansible.builtin.apt:
     name: "{{ percona_server_install }}"
     state: "{{ apt_install_state | default('latest') }}"
   tags:

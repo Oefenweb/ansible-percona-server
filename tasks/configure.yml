@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: configure | copy certificate files
-  copy:
+  ansible.builtin.copy:
     src: "{{ item.value.src }}"
     dest: "{{ item.value.dest }}"
     owner: "{{ item.value.owner | default('root') }}"
@@ -14,14 +14,14 @@
 
 - block:
     - name: configure | service | stop
-      service:
+      ansible.builtin.service:
         name: mysql
         state: stopped
       tags:
         - percona-server-configure-first-run-service-stop
 
     - name: configure | remove (excessive) configuration files
-      file:
+      ansible.builtin.file:
         path: "{{ item }}"
         state: absent
       with_items:
@@ -34,7 +34,7 @@
     - percona-server-configure-first-run
 
 - name: configure | update (global) configuration file
-  template:
+  ansible.builtin.template:
     src: "{{ percona_server_etc_mysql_my_cnf.lstrip('/') }}.j2"
     dest: "{{ percona_server_etc_mysql_my_cnf }}"
     owner: root
@@ -46,7 +46,7 @@
 
 - block:
     - name: configure | service | start
-      service:
+      ansible.builtin.service:
         name: mysql
         state: started
       tags:
@@ -56,7 +56,7 @@
     - percona-server-configure-first-run
 
 - name: configure | update (root) configuration file
-  template:
+  ansible.builtin.template:
     src: root/.my.cnf.j2
     dest: '~root/.my.cnf'
     owner: root
