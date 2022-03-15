@@ -1,74 +1,74 @@
 # tasks file
 ---
-- include: version-support.yml
+- include_tasks: version-support.yml
   tags:
     - configuration
     - percona-server
     - percona-server-version-support
 
-- include: first-run.yml
+- include_tasks: first-run.yml
   tags:
     - configuration
     - percona-server
     - percona-server-first-run
 
-- include: repository.yml
+- include_tasks: repository.yml
   tags:
     - configuration
     - percona-server
     - percona-server-repository
 
-- include: install.yml
+- include_tasks: install.yml
   tags:
     - configuration
     - percona-server
     - percona-server-install
 
-- include: configure.yml
+- include_tasks: configure.yml
   tags:
     - configuration
     - percona-server
     - percona-server-configure
 
-- include: toolkit-udfs.yml
+- include_tasks: toolkit-udfs.yml
   tags:
     - configuration
     - percona-server
     - percona-server-toolkit-udfs
   when: percona_server_toolkit_udfs_manage | bool
 
-- include: zoneinfo.yml
+- include_tasks: zoneinfo.yml
   tags:
     - configuration
     - percona-server
     - percona-server-zoneinfo
   when: percona_server_zoneinfo_manage | bool
 
-- include: databases.yml
+- include_tasks: databases.yml
   tags:
     - configuration
     - percona-server
     - percona-server-databases
 
-- include: users.yml
+- include_tasks: users.yml
   tags:
     - configuration
     - percona-server
     - percona-server-users
 
-- include: plugins.yml
+- include_tasks: plugins.yml
   tags:
     - configuration
     - percona-server
     - percona-server-plugins
 
-- include: queries.yml
+- include_tasks: queries.yml
   tags:
     - configuration
     - percona-server
     - percona-server-queries
 
-- include: ib-logfile.yml
+- include_tasks: ib-logfile.yml
   tags:
     - configuration
     - percona-server
