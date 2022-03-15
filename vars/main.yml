@@ -16,7 +16,7 @@ percona_server_repositories_5:
   - type: deb-src
     url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
     component: main
- 
+
 percona_server_repositories_8:
   - type: deb
     url: "http://repo.percona.com/ps-80/apt {{ ansible_lsb.codename }}"
