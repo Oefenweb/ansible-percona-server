@@ -13,13 +13,6 @@
     - percona-server-configure-copy-certificate-files
 
 - block:
-    - name: configure | service | stop
-      ansible.builtin.service:
-        name: mysql
-        state: stopped
-      tags:
-        - percona-server-configure-first-run-service-stop
-
     - name: configure | remove (excessive) configuration files
       ansible.builtin.file:
         path: "{{ item }}"
