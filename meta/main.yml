@@ -1,26 +1,21 @@
-# meta file for percona-server
+# meta file
 ---
 galaxy_info:
-  role_name: percona-server
+  namespace: oefenweb
+  role_name: percona_server
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up percona-server server in Debian-like systems
   license: MIT
-<<<<<<< Updated upstream
-  min_ansible_version: 2.6.0
-=======
   min_ansible_version: 2.10.0
->>>>>>> Stashed changes
   platforms:
     - name: Ubuntu
       versions:
-        - precise
-        - trusty
         - xenial
         - bionic
+        - focal
     - name: Debian
       versions:
-        - wheezy
         - jessie
         - stretch
         - buster

@@ -20,8 +20,7 @@
 !includedir {{ percona_server_etc_my_cnf_includedir }}
 {% endif %}
 
-{% if percona_server_version is version('8.0', '==') and percona_server_use_legacy_auth_method %}
-# Ansible variable percona_server_use_legacy_auth_method is true
+{% if percona_server_version is version('8.0', '==') and percona_server_use_legacy_auth_method | bool %}
 [mysqld]
 default-authentication-plugin = mysql_native_password
 {% endif %}

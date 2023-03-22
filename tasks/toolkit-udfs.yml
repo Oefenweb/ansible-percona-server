@@ -1,4 +1,4 @@
-# tasks file for percona-server
+# tasks file
 ---
 - name: toolkit udfs | create (lock) directory
   file:

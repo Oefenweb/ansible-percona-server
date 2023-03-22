@@ -1,4 +1,4 @@
-# tasks file for percona-server
+# tasks file
 ---
 - name: configure | copy certificate files
   copy:
@@ -13,22 +13,22 @@
     - percona-server-configure-copy-certificate-files
 
 - block:
-  - name: configure | service | stop
-    service:
-      name: mysql
-      state: stopped
-    tags:
-      - percona-server-configure-first-run-service-stop
+    - name: configure | service | stop
+      service:
+        name: mysql
+        state: stopped
+      tags:
+        - percona-server-configure-first-run-service-stop
 
-  - name: configure | remove (excessive) configuration files
-    file:
-      path: "{{ item }}"
-      state: absent
-    with_items:
-      - /etc/mysql/percona-server.cnf
-      - /etc/mysql/percona-server.conf.d
-    tags:
-      - percona-server-configure-first-run-cleanup
+    - name: configure | remove (excessive) configuration files
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /etc/mysql/percona-server.cnf
+        - /etc/mysql/percona-server.conf.d
+      tags:
+        - percona-server-configure-first-run-cleanup
   when: _mysqld_installed.rc != 0
   tags:
     - percona-server-configure-first-run
@@ -45,12 +45,12 @@
     - percona-server-configure-global-my-cnf
 
 - block:
-  - name: configure | service | start
-    service:
-      name: mysql
-      state: started
-    tags:
-      - percona-server-configure-first-run-service-start
+    - name: configure | service | start
+      service:
+        name: mysql
+        state: started
+      tags:
+        - percona-server-configure-first-run-service-start
   when: _mysqld_installed.rc != 0
   tags:
     - percona-server-configure-first-run

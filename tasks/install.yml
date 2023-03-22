@@ -1,4 +1,4 @@
-# tasks file for percona-server
+# tasks file
 ---
 - name: install | configure debconf
   debconf:
@@ -20,7 +20,7 @@
   changed_when: false
   when:
     - percona_server_version is version('8.0', '==')
-    - percona_server_use_legacy_auth_method
+    - percona_server_use_legacy_auth_method | bool
   tags:
     - percona-server-install-configure-debconf
 

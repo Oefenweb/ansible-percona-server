@@ -1,4 +1,4 @@
-# vars file for percona-server
+# vars file
 ---
 percona_server_versions_supported:
   - '5.5'
@@ -11,24 +11,24 @@ percona_server_version_deb: "{{ '' if percona_server_version is version('8.0', '
 
 percona_server_repositories_5:
   - type: deb
-    url: "http://repo.percona.com/apt {{ ansible_lsb.codename }}"
+    url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
     component: main
   - type: deb-src
-    url: "http://repo.percona.com/apt {{ ansible_lsb.codename }}"
+    url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
     component: main
 
 percona_server_repositories_8:
   - type: deb
-    url: "http://repo.percona.com/ps-80/apt {{ ansible_lsb.codename }}"
+    url: "http://repo.percona.com/ps-80/apt {{ ansible_distribution_release }}"
     component: main
   - type: deb-src
-    url: "http://repo.percona.com/ps-80/apt {{ ansible_lsb.codename }}"
+    url: "http://repo.percona.com/ps-80/apt {{ ansible_distribution_release }}"
     component: main
   - type: deb
-    url: "http://repo.percona.com/tools/apt {{ ansible_lsb.codename }}"
+    url: "http://repo.percona.com/tools/apt {{ ansible_distribution_release }}"
     component: main
   - type: deb-src
-    url: "http://repo.percona.com/tools/apt {{ ansible_lsb.codename }}"
+    url: "http://repo.percona.com/tools/apt {{ ansible_distribution_release }}"
     component: main
 
 percona_server_repositories: "{{ percona_server_repositories_8 if percona_server_version is version('8.0', '==') else percona_server_repositories_5 }}"
@@ -52,12 +52,15 @@ percona_server_debconf_selections:
     value: "{{ percona_server_root_password }}"
     vtype: password
 
+percona_server_dependencies_pre:
+  - software-properties-common
+  - dirmngr
+
 percona_server_dependencies:
   - "percona-server-client{{ percona_server_version_deb }}"
   - "percona-server-server{{ percona_server_version_deb }}"
   - "{{ percona_server_libmysqlclient_map[percona_server_version] }}"
-  - python-mysqldb
-  - python3-mysqldb
+  - "python{{ ansible_python_version is version('3', '>=') | ternary('3', '') }}-mysqldb"
 
 percona_server_etc_mysql_my_cnf: /etc/mysql/my.cnf
 

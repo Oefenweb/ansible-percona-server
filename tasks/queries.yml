@@ -1,4 +1,4 @@
-# tasks file for percona-server, queries
+# tasks file
 ---
 - name: queries | execute sql
   command: >

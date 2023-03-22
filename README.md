@@ -1,7 +1,7 @@
 ## percona-server
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-percona-server.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-percona-server) 
-[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-percona--server-blue.svg)](https://galaxy.ansible.com/Oefenweb/percona-server)
+[![CI](https://github.com/Oefenweb/ansible-percona-server/workflows/CI/badge.svg)](https://github.com/Oefenweb/ansible-percona-server/actions?query=workflow%3ACI)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-percona--server-blue.svg)](https://galaxy.ansible.com/Oefenweb/percona_server)
 
 Set up a [percona-server](https://www.percona.com/software/mysql-database/percona-server) server in Debian-like systems.
 
@@ -9,12 +9,14 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 * `python-mysqldb(2|3)` (will be installed)
 * `tee` (will not be installed)
+* `software-properties-common` (will be installed)
+* `dirmngr` (will be installed)
 
 #### Variables
 
 ##### General
 
-* `percona_server_version`: [default: `5.6`]: Version to install (e.g. `5.6`)
+* `percona_server_version`: [default: `5.7`]: Version to install (e.g. `5.6`)
 * `percona_server_root_password`: [default: `+eswuw9uthUteFreyAqu`]: Root password **Make sure to change!**
 
 * `percona_server_install`: [`['xtrabackup']`]: Additional packages to install

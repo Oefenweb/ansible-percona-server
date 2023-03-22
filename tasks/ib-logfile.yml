@@ -1,4 +1,4 @@
-# tasks file for percona-server
+# tasks file
 ---
 - name: ib logfile | get datadir
   mysql_variables:
@@ -17,35 +17,35 @@
 
 # Instead of doing this in main.yml we do it here because of a bug in 2.2.0.0
 - block:
-  - name: ib logfile | set InnoDB shutdown mode
-    mysql_variables:
-      variable: innodb_fast_shutdown
-      value: "1"
-    tags:
-      - percona-server-ib-logfile-innodb-fast-shutdown
-      - percona-server-ib-logfile-innodb-fast-shutdown-set
+    - name: ib logfile | set InnoDB shutdown mode
+      mysql_variables:
+        variable: innodb_fast_shutdown
+        value: "1"
+      tags:
+        - percona-server-ib-logfile-innodb-fast-shutdown
+        - percona-server-ib-logfile-innodb-fast-shutdown-set
 
-  - name: ib logfile | stop service
-    service:
-      name: mysql
-      state: stopped
-    tags:
-      - percona-server-ib-logfile-stop-service
+    - name: ib logfile | stop service
+      service:
+        name: mysql
+        state: stopped
+      tags:
+        - percona-server-ib-logfile-stop-service
 
-  - name: ib logfile | remove ib_logfile(s)
-    file:
-      path: "{{ item }}"
-      state: absent
-    with_items:
-      - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile0"
-      - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile1"
-    tags:
-      - percona-server-ib-logfile-remove
+    - name: ib logfile | remove ib_logfile(s)
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile0"
+        - "{{ percona_server_datadir.rstrip('/') }}/ib_logfile1"
+      tags:
+        - percona-server-ib-logfile-remove
 
-  - name: ib logfile | start service
-    service:
-      name: mysql
-      state: started
-    tags:
-      - percona-server-ib-logfile-start-service
+    - name: ib logfile | start service
+      service:
+        name: mysql
+        state: started
+      tags:
+        - percona-server-ib-logfile-start-service
   when: _mysqld_installed.rc != 0
