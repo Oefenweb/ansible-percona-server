@@ -12,7 +12,11 @@
   tags:
     - percona-server-configure-copy-certificate-files
 
-- block:
+- name: configure | service
+  when: _mysqld_installed.rc != 0
+  tags:
+    - percona-server-configure-first-run
+  block:
     - name: configure | service | stop
       ansible.builtin.service:
         name: mysql
@@ -29,9 +33,6 @@
         - /etc/mysql/percona-server.conf.d
       tags:
         - percona-server-configure-first-run-cleanup
-  when: _mysqld_installed.rc != 0
-  tags:
-    - percona-server-configure-first-run
 
 - name: configure | update (global) configuration file
   ansible.builtin.template:
@@ -44,16 +45,17 @@
   tags:
     - percona-server-configure-global-my-cnf
 
-- block:
+- name: configure | service
+  when: _mysqld_installed.rc != 0
+  tags:
+    - percona-server-configure-first-run
+  block:
     - name: configure | service | start
       ansible.builtin.service:
         name: mysql
         state: started
       tags:
         - percona-server-configure-first-run-service-start
-  when: _mysqld_installed.rc != 0
-  tags:
-    - percona-server-configure-first-run
 
 - name: configure | update (root) configuration file
   ansible.builtin.template:
