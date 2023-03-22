@@ -16,7 +16,9 @@
     - percona-server-store-datadir-set-fact
 
 # Instead of doing this in main.yml we do it here because of a bug in 2.2.0.0
-- block:
+- name: ib logfile | first run
+  when: _mysqld_installed.rc != 0
+  block:
     - name: ib logfile | set InnoDB shutdown mode
       community.mysql.mysql_variables:
         variable: innodb_fast_shutdown
@@ -48,4 +50,3 @@
         state: started
       tags:
         - percona-server-ib-logfile-start-service
-  when: _mysqld_installed.rc != 0
