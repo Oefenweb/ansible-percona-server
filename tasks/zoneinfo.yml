@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: timezone info | create (lock) directory
-  file:
+  ansible.builtin.file:
     path: "{{ percona_server_lock_path }}"
     state: directory
     owner: root
@@ -11,7 +11,7 @@
     - percona-server-zoneinfo-lock-directory
 
 - name: timezone info | install
-  shell: >
+  ansible.builtin.shell: >
     {{ percona_server_zoneinfo_command }} | tee {{ percona_server_lock_path }}/zoneinfo.sql | mysql --database=mysql
   args:
     creates: "{{ percona_server_lock_path }}/zoneinfo.sql"

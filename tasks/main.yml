@@ -1,81 +1,81 @@
 # tasks file
 ---
-- include: version-support.yml
+- ansible.builtin.include: version-support.yml
   tags:
     - configuration
     - percona-server
     - percona-server-version-support
 
-- include: first-run.yml
+- ansible.builtin.include: first-run.yml
   tags:
     - configuration
     - percona-server
     - percona-server-first-run
 
-- include: repository.yml
+- ansible.builtin.include: repository.yml
   tags:
     - configuration
     - percona-server
     - percona-server-repository
 
-- include: install.yml
+- ansible.builtin.include: install.yml
   tags:
     - configuration
     - percona-server
     - percona-server-install
 
-- include: configure.yml
+- ansible.builtin.include: configure.yml
   tags:
     - configuration
     - percona-server
     - percona-server-configure
 
-- include: toolkit-udfs.yml
+- ansible.builtin.include: toolkit-udfs.yml
   tags:
     - configuration
     - percona-server
     - percona-server-toolkit-udfs
   when: percona_server_toolkit_udfs_manage | bool
 
-- include: zoneinfo.yml
+- ansible.builtin.include: zoneinfo.yml
   tags:
     - configuration
     - percona-server
     - percona-server-zoneinfo
   when: percona_server_zoneinfo_manage | bool
 
-- include: databases.yml
+- ansible.builtin.include: databases.yml
   tags:
     - configuration
     - percona-server
     - percona-server-databases
 
-- include: users.yml
+- ansible.builtin.include: users.yml
   tags:
     - configuration
     - percona-server
     - percona-server-users
 
-- include: plugins.yml
+- ansible.builtin.include: plugins.yml
   tags:
     - configuration
     - percona-server
     - percona-server-plugins
 
-- include: queries.yml
+- ansible.builtin.include: queries.yml
   tags:
     - configuration
     - percona-server
     - percona-server-queries
 
-- include: ib-logfile.yml
+- ansible.builtin.include: ib-logfile.yml
   tags:
     - configuration
     - percona-server
     - percona-server-ib-logfile
 
 - name: start and enable service
-  service:
+  ansible.builtin.service:
     name: mysql
     state: "{{ service_default_state | default('started') }}"
     enabled: "{{ service_default_enabled | default(true) | bool }}"
