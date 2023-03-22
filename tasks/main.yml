@@ -1,74 +1,86 @@
 # tasks file
 ---
-- ansible.builtin.include: version-support.yml
+- name: version support
+  ansible.builtin.import_tasks: version-support.yml
   tags:
     - configuration
     - percona-server
     - percona-server-version-support
 
-- ansible.builtin.include: first-run.yml
+- name: first run
+  ansible.builtin.import_tasks: first-run.yml
   tags:
     - configuration
     - percona-server
     - percona-server-first-run
 
-- ansible.builtin.include: repository.yml
+- name: repository
+  ansible.builtin.import_tasks: repository.yml
   tags:
     - configuration
     - percona-server
     - percona-server-repository
 
-- ansible.builtin.include: install.yml
+- name: install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - configuration
     - percona-server
     - percona-server-install
 
-- ansible.builtin.include: configure.yml
+- name: configure
+  ansible.builtin.import_tasks: configure.yml
   tags:
     - configuration
     - percona-server
     - percona-server-configure
 
-- ansible.builtin.include: toolkit-udfs.yml
+- name: toolkit udfs
+  ansible.builtin.import_tasks: toolkit-udfs.yml
   tags:
     - configuration
     - percona-server
     - percona-server-toolkit-udfs
   when: percona_server_toolkit_udfs_manage | bool
 
-- ansible.builtin.include: zoneinfo.yml
+- name: zoneinfo
+  ansible.builtin.import_tasks: zoneinfo.yml
   tags:
     - configuration
     - percona-server
     - percona-server-zoneinfo
   when: percona_server_zoneinfo_manage | bool
 
-- ansible.builtin.include: databases.yml
+- name: databases
+  ansible.builtin.import_tasks: databases.yml
   tags:
     - configuration
     - percona-server
     - percona-server-databases
 
-- ansible.builtin.include: users.yml
+- name: users
+  ansible.builtin.import_tasks: users.yml
   tags:
     - configuration
     - percona-server
     - percona-server-users
 
-- ansible.builtin.include: plugins.yml
+- name: plugins
+  ansible.builtin.import_tasks: plugins.yml
   tags:
     - configuration
     - percona-server
     - percona-server-plugins
 
-- ansible.builtin.include: queries.yml
+- name: queries
+  ansible.builtin.import_tasks: queries.yml
   tags:
     - configuration
     - percona-server
     - percona-server-queries
 
-- ansible.builtin.include: ib-logfile.yml
+- name: ib logfile
+  ansible.builtin.import_tasks: ib-logfile.yml
   tags:
     - configuration
     - percona-server
