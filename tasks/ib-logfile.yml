@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: ib logfile | get datadir
-  mysql_variables:
+  community.mysql.mysql_variables:
     variable: datadir
   register: _datadir_value
   tags:
@@ -9,16 +9,18 @@
     - percona-server-store-datadir-retrieve
 
 - name: ib logfile | store datadir
-  set_fact:
+  ansible.builtin.set_fact:
     percona_server_datadir: "{{ _datadir_value.msg }}"
   tags:
     - percona-server-store-datadir
     - percona-server-store-datadir-set-fact
 
 # Instead of doing this in main.yml we do it here because of a bug in 2.2.0.0
-- block:
+- name: ib logfile | first run
+  when: _mysqld_installed.rc != 0
+  block:
     - name: ib logfile | set InnoDB shutdown mode
-      mysql_variables:
+      community.mysql.mysql_variables:
         variable: innodb_fast_shutdown
         value: "1"
       tags:
@@ -26,14 +28,14 @@
         - percona-server-ib-logfile-innodb-fast-shutdown-set
 
     - name: ib logfile | stop service
-      service:
+      ansible.builtin.service:
         name: mysql
         state: stopped
       tags:
         - percona-server-ib-logfile-stop-service
 
     - name: ib logfile | remove ib_logfile(s)
-      file:
+      ansible.builtin.file:
         path: "{{ item }}"
         state: absent
       with_items:
@@ -43,9 +45,8 @@
         - percona-server-ib-logfile-remove
 
     - name: ib logfile | start service
-      service:
+      ansible.builtin.service:
         name: mysql
         state: started
       tags:
         - percona-server-ib-logfile-start-service
-  when: _mysqld_installed.rc != 0

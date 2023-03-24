@@ -4,8 +4,12 @@ percona_server_versions_supported:
   - '5.5'
   - '5.6'
   - '5.7'
+  - '8.0'
 
-percona_server_repositories:
+percona_server_version_deb_prefix: "-{{ percona_server_version }}"
+percona_server_version_deb: "{{ '' if percona_server_version is version('8.0', '==') else percona_server_version_deb_prefix }}"
+
+percona_server_repositories_5:
   - type: deb
     url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
     component: main
@@ -13,22 +17,38 @@ percona_server_repositories:
     url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
     component: main
 
+percona_server_repositories_8:
+  - type: deb
+    url: "http://repo.percona.com/ps-80/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: deb-src
+    url: "http://repo.percona.com/ps-80/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: deb
+    url: "http://repo.percona.com/tools/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: deb-src
+    url: "http://repo.percona.com/tools/apt {{ ansible_distribution_release }}"
+    component: main
+
+percona_server_repositories: "{{ percona_server_repositories_8 if percona_server_version is version('8.0', '==') else percona_server_repositories_5 }}"
+
 percona_server_debconf_selections:
-  - name: "percona-server-server-{{ percona_server_version }}"
+  - name: "percona-server-server{{ percona_server_version_deb }}"
     question: percona-server-server/root_password
     value: "{{ percona_server_root_password }}"
     vtype: password
-  - name: "percona-server-server-{{ percona_server_version }}"
+  - name: "percona-server-server{{ percona_server_version_deb }}"
     question: percona-server-server/root_password_again
     value: "{{ percona_server_root_password }}"
     vtype: password
   # 5.7
-  - name: "percona-server-server-{{ percona_server_version }}"
-    question: "percona-server-server-{{ percona_server_version }}/root-pass"
+  - name: "percona-server-server{{ percona_server_version_deb }}"
+    question: "percona-server-server{{ percona_server_version_deb }}/root-pass"
     value: "{{ percona_server_root_password }}"
     vtype: password
-  - name: "percona-server-server-{{ percona_server_version }}"
-    question: "percona-server-server-{{ percona_server_version }}/re-root-pass"
+  - name: "percona-server-server{{ percona_server_version_deb }}"
+    question: "percona-server-server{{ percona_server_version_deb }}/re-root-pass"
     value: "{{ percona_server_root_password }}"
     vtype: password
 
@@ -37,8 +57,8 @@ percona_server_dependencies_pre:
   - dirmngr
 
 percona_server_dependencies:
-  - "percona-server-client-{{ percona_server_version }}"
-  - "percona-server-server-{{ percona_server_version }}"
+  - "percona-server-client{{ percona_server_version_deb }}"
+  - "percona-server-server{{ percona_server_version_deb }}"
   - "{{ percona_server_libmysqlclient_map[percona_server_version] }}"
   - "python{{ ansible_python_version is version('3', '>=') | ternary('3', '') }}-mysqldb"
 
@@ -70,3 +90,4 @@ percona_server_libmysqlclient_map:
   5.5: libperconaserverclient18
   5.6: libperconaserverclient18.1
   5.7: libperconaserverclient20
+  8.0: libperconaserverclient21

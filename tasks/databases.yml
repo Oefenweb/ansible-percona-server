@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: databases | create
-  mysql_db:
+  community.mysql.mysql_db:
     name: "{{ item.name }}"
     collation: "{{ item.collation | default('utf8_general_ci') }}"
     encoding: "{{ item.encoding | default('utf8') }}"
@@ -11,7 +11,7 @@
     - percona-server-databases-create
 
 - name: databases | drop
-  mysql_db:
+  community.mysql.mysql_db:
     name: "{{ item.name }}"
     state: absent
   with_items: "{{ percona_server_databases_absent }}"

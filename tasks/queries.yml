@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: queries | execute sql
-  command: >
+  ansible.builtin.command: >
     mysql --database="{{ item.0.database }}" -e "{{ item.1 }}; SELECT ROW_COUNT();" --skip-column-names
   register: _rows_affected
   changed_when: "_rows_affected.stdout | int > 0"
