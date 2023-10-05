@@ -4,7 +4,7 @@
   ansible.builtin.shell: >
     dpkg-query -W -f='${Status}' percona-server-server{{ percona_server_version_deb }} | grep -q 'install ok installed'
   register: _mysqld_installed
-  check_mode: no
+  check_mode: false
   changed_when: false
   failed_when: false
   tags:
