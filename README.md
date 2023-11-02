@@ -110,7 +110,7 @@ None
 ---
 - hosts: all
   roles:
-    - percona-server
+    - oefenweb.percona-server
 ```
 
 ##### Configure databases and users
@@ -119,7 +119,7 @@ None
 ---
 - hosts: all
   roles:
-    - percona-server
+    - oefenweb.percona-server
   vars:
     percona_server_databases_present:
       - name: ipsum
@@ -159,7 +159,7 @@ None
 ```yaml
 - hosts: all
   roles:
-    - percona-server
+    - oefenweb.percona-server
   vars:
     percona_server_ssl_map:
       ca-cert:
@@ -201,7 +201,7 @@ None
 ```yaml
 - hosts: master
   roles:
-    - percona-server
+    - oefenweb.percona-server
   vars:
     percona_server_users_present:
       - name: replicator
@@ -227,8 +227,9 @@ None
 
 - hosts: slave
   roles:
-    - percona-server
+    - oefenweb.percona-server
   vars:
+    percona_server_users_present:
       - name: replicator
         password: 'replicator'
         privs:
@@ -261,7 +262,7 @@ None
 ```yaml
 - hosts: master1
   roles:
-    - percona-server
+    - oefenweb.percona-server
   vars:
     percona_server_users_present:
       - name: replicator
@@ -296,7 +297,7 @@ None
 
 - hosts: master2
   roles:
-    - percona-server
+    - oefenweb.percona-server
   vars:
     percona_server_users_present:
       - name: replicator
