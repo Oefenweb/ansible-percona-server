@@ -7,6 +7,7 @@
     priv: "{{ item[0].privs | join('/') }}"
     host: "{{ item[1] }}"
     state: present
+    no_log: true
   with_nested:
     - "{{ percona_server_users_present | selectattr('hosts', 'undefined') | list }}"
     - "{{ percona_server_users_present_hosts }}"
@@ -21,6 +22,7 @@
     priv: "{{ item[0].privs | join('/') }}"
     host: "{{ item[1] }}"
     state: present
+    no_log: true
   with_subelements:
     - "{{ percona_server_users_present | selectattr('hosts', 'defined') | list }}"
     - hosts

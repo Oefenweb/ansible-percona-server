@@ -1,6 +1,7 @@
 # tasks file
 ---
 - name: install | configure debconf
+  no_log: true
   ansible.builtin.debconf:
     name: "{{ item.name }}"
     question: "{{ item.question }}"
