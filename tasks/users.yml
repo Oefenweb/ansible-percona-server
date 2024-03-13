@@ -8,6 +8,9 @@
     host: "{{ item[1] }}"
     state: present
     no_log: true
+    check_implicit_admin: true
+    login_user: "{{ percona_server_root_username }}"
+    login_password: "{{ percona_server_root_password }}"
   with_nested:
     - "{{ percona_server_users_present | selectattr('hosts', 'undefined') | list }}"
     - "{{ percona_server_users_present_hosts }}"
@@ -23,6 +26,9 @@
     host: "{{ item[1] }}"
     state: present
     no_log: true
+    check_implicit_admin: true
+    login_user: "{{ percona_server_root_username }}"
+    login_password: "{{ percona_server_root_password }}"
   with_subelements:
     - "{{ percona_server_users_present | selectattr('hosts', 'defined') | list }}"
     - hosts
@@ -35,6 +41,9 @@
     name: "{{ item[0].name }}"
     host: "{{ item[1] }}"
     state: absent
+    check_implicit_admin: true
+    login_user: "{{ percona_server_root_username }}"
+    login_password: "{{ percona_server_root_password }}"
   with_nested:
     - "{{ percona_server_users_absent | selectattr('hosts', 'undefined') | list }}"
     - "{{ percona_server_users_absent_hosts }}"
@@ -47,6 +56,9 @@
     name: "{{ item[0].name }}"
     host: "{{ item[1] }}"
     state: absent
+    check_implicit_admin: true
+    login_user: "{{ percona_server_root_username }}"
+    login_password: "{{ percona_server_root_password }}"
   with_subelements:
     - "{{ percona_server_users_absent | selectattr('hosts', 'defined') | list }}"
     - hosts
