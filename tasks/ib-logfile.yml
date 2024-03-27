@@ -3,6 +3,8 @@
 - name: ib logfile | get datadir
   community.mysql.mysql_variables:
     variable: datadir
+    login_user: "{{ percona_server_root_username }}"
+    login_password: "{{ percona_server_root_password }}"
   register: _datadir_value
   tags:
     - percona-server-store-datadir
@@ -23,6 +25,8 @@
       community.mysql.mysql_variables:
         variable: innodb_fast_shutdown
         value: "1"
+        login_user: "{{ percona_server_root_username }}"
+        login_password: "{{ percona_server_root_password }}"
       tags:
         - percona-server-ib-logfile-innodb-fast-shutdown
         - percona-server-ib-logfile-innodb-fast-shutdown-set

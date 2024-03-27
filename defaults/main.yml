@@ -2,6 +2,7 @@
 ---
 percona_server_version: 5.7
 
+percona_server_root_username: root
 percona_server_root_password: '+eswuw9uthUteFreyAqu'
 
 percona_server_use_legacy_auth_method: false
@@ -15,7 +16,7 @@ percona_server_user_root_cnf_preset:
       - name: host
         value: localhost
       - name: user
-        value: root
+        value: "{{ percona_server_root_username }}"
       - name: password
         value: "'{{ percona_server_root_password }}'"
 percona_server_user_root_cnf: "{{ percona_server_user_root_cnf_preset }}"
