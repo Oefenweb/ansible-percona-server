@@ -1,13 +1,13 @@
 # tasks file
 ---
 - name: users | create (default hosts)
+  no_log: true
   community.mysql.mysql_user:
     name: "{{ item[0].name }}"
     password: "{{ item[0].password }}"
     priv: "{{ item[0].privs | join('/') }}"
     host: "{{ item[1] }}"
     state: present
-    no_log: true
     check_implicit_admin: true
     login_user: "{{ percona_server_root_username }}"
     login_password: "{{ percona_server_root_password }}"
@@ -19,13 +19,13 @@
     - percona-server-users-create-default-hosts
 
 - name: users | create (custom hosts)
+  no_log: true
   community.mysql.mysql_user:
     name: "{{ item[0].name }}"
     password: "{{ item[0].password }}"
     priv: "{{ item[0].privs | join('/') }}"
     host: "{{ item[1] }}"
     state: present
-    no_log: true
     check_implicit_admin: true
     login_user: "{{ percona_server_root_username }}"
     login_password: "{{ percona_server_root_password }}"
