@@ -59,5 +59,3 @@ percona_server_zoneinfo_tz_name: ''
 percona_server_zoneinfo_command: "mysql_tzinfo_to_sql {{ percona_server_zoneinfo_tz_dir }}"
 
 percona_server_toolkit_udfs_manage: true
-
-apt_key_keyserver: keyserver.ubuntu.com
