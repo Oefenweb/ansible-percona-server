@@ -13,7 +13,7 @@
 - name: repository | add public key
   ansible.builtin.apt_key:
     id: 9334A25F8507EFA5
-    keyserver: keyserver.ubuntu.com
+    keyserver: "{{ apt_key_keyserver | default('keyserver.ubuntu.com') }}"
     state: present
   tags:
     - percona-server-repository-public-key
