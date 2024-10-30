@@ -1,11 +1,18 @@
 # tasks file
 ---
 - name: first-run | check
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
+  tags:
+    - percona-server-first-run-check
+
+- name: first-run | check
   ansible.builtin.shell: >
     dpkg-query -W -f='${Status}' percona-server-server{{ percona_server_version_deb }} | grep -q 'install ok installed'
   register: _mysqld_installed
-  check_mode: false
   changed_when: false
+  check_mode: false
   failed_when: false
   tags:
     - percona-server-first-run-check

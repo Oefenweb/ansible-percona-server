@@ -4,8 +4,6 @@
   ansible.builtin.apt:
     name: "{{ percona_server_dependencies_pre }}"
     state: "{{ apt_install_state | default('latest') }}"
-    update_cache: true
-    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
   tags:
     - percona-server-repository-install
     - percona-server-repository-install-dependencies
