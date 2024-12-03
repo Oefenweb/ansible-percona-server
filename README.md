@@ -11,6 +11,9 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `tee` (will not be installed)
 * `software-properties-common` (will be installed)
 * `dirmngr` (will be installed)
+* `gpg-agent` (will be installed)
+* `apt-transport-https` (will be installed)
+* `debconf-utils` (will be installed)
 
 #### Variables
 
