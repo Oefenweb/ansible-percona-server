@@ -40,7 +40,7 @@
     dest: "{{ percona_server_etc_mysql_my_cnf }}"
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   notify: restart percona-server
   tags:
     - percona-server-configure-global-my-cnf
@@ -63,7 +63,7 @@
     dest: '~root/.my.cnf'
     owner: root
     group: root
-    mode: 0600
+    mode: '0600'
   when: percona_server_user_root_cnf_manage
   tags:
     - percona-server-configure-root-my-cnf
