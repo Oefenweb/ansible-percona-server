@@ -5,13 +5,6 @@ role = File.basename(File.expand_path(File.dirname(__FILE__)))
 
 boxes = [
   {
-    :name => "ubuntu-1604",
-    :box => "bento/ubuntu-16.04",
-    :ip => '10.0.0.12',
-    :cpu => "50",
-    :ram => "256"
-  },
-  {
     :name => "ubuntu-1804",
     :box => "bento/ubuntu-18.04",
     :ip => '10.0.0.13',
@@ -23,21 +16,21 @@ boxes = [
     :box => "bento/ubuntu-20.04",
     :ip => '10.0.0.14',
     :cpu => "50",
-    :ram => "384"
+    :ram => "512"
   },
   {
-    :name => "debian-8",
-    :box => "bento/debian-8",
+    :name => "ubuntu-2204",
+    :box => "bento/ubuntu-22.04",
+    :ip => '10.0.0.15',
+    :cpu => "50",
+    :ram => "512"
+  },
+  {
+    :name => "ubuntu-2404",
+    :box => "bento/ubuntu-24.04",
     :ip => '10.0.0.16',
     :cpu => "50",
-    :ram => "256"
-  },
-  {
-    :name => "debian-9",
-    :box => "bento/debian-9",
-    :ip => '10.0.0.17',
-    :cpu => "50",
-    :ram => "256"
+    :ram => "512"
   },
   {
     :name => "debian-10",
@@ -45,6 +38,20 @@ boxes = [
     :ip => '10.0.0.18',
     :cpu => "50",
     :ram => "256"
+  },
+  {
+    :name => "debian-11",
+    :box => "bento/debian-11",
+    :ip => '10.0.0.19',
+    :cpu => "50",
+    :ram => "256"
+  },
+  {
+    :name => "debian-12",
+    :box => "bento/debian-12",
+    :ip => '10.0.0.20',
+    :cpu => "50",
+    :ram => "384"
   },
 ]
 

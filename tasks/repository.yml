@@ -33,6 +33,6 @@
     dest: /etc/apt/preferences.d/00percona.pref
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   tags:
     - percona-server-repository-apt-pin
