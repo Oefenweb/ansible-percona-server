@@ -143,6 +143,9 @@ None
         privs:
           - 'ipsum.*:ALL'
           - 'dolor.*:ALL'
+        tls_requires:
+          subject: '/CN=alice/O=MyDom, Inc./C=US/ST=Oregon/L=Portland'
+          cipher: 'ECDHE-ECDSA-AES256-SHA384'
       - name: adipiscing
         password: 'lacus'
         privs:
