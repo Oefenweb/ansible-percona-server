@@ -63,7 +63,10 @@ percona_server_dependencies:
   - "percona-server-client{{ percona_server_version_deb }}"
   - "percona-server-server{{ percona_server_version_deb }}"
   - "{{ percona_server_libmysqlclient_map[percona_server_version] }}"
-  - "python{{ ansible_python_version is version('3', '>=') | ternary('3', '') }}-mysqldb"
+  - "python{{ ansible_python_version is version('3', '>=') | ternary('3', '') }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '>=') else 'mysqldb' }}"
+
+percona_server_dependencies_for_purge:
+  - "python{{ ansible_python_version is version('3', '>=') | ternary('3', '') }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '<') else 'mysqldb' }}"
 
 percona_server_etc_mysql_my_cnf: /etc/mysql/my.cnf
 

@@ -1,0 +1,9 @@
+# tasks file
+---
+- name: clean | dependencies
+  ansible.builtin.apt:
+    name: "{{ percona_server_dependencies_for_purge }}"
+    state: absent
+    purge: true
+  tags:
+    - percona-server-clean-dependencies

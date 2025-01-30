@@ -21,6 +21,13 @@
     - percona-server
     - percona-server-repository
 
+- name: clean
+  ansible.builtin.import_tasks: clean.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-clean
+
 - name: install
   ansible.builtin.import_tasks: install.yml
   tags:
