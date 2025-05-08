@@ -41,7 +41,9 @@
     - configuration
     - percona-server
     - percona-server-toolkit-udfs
-  when: percona_server_toolkit_udfs_manage | bool
+  when:
+    - percona_server_toolkit_udfs_manage | bool
+    - percona_server_version is not version('8.4', '==')
 
 - name: zoneinfo
   ansible.builtin.import_tasks: zoneinfo.yml

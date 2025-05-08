@@ -5,9 +5,10 @@ percona_server_versions_supported:
   - '5.6'
   - '5.7'
   - '8.0'
+  - '8.4'
 
 percona_server_version_deb_prefix: "-{{ percona_server_version }}"
-percona_server_version_deb: "{{ '' if percona_server_version is version('8.0', '==') else percona_server_version_deb_prefix }}"
+percona_server_version_deb: "{{ '' if percona_server_version is version('8.0', '==') or percona_server_version is version('8.4', '==') else percona_server_version_deb_prefix }}"
 
 percona_server_repositories_5:
   - type: deb
@@ -31,7 +32,27 @@ percona_server_repositories_8:
     url: "http://repo.percona.com/tools/apt {{ ansible_distribution_release }}"
     component: main
 
-percona_server_repositories: "{{ percona_server_repositories_8 if percona_server_version is version('8.0', '==') else percona_server_repositories_5 }}"
+percona_server_repositories_84:
+  - type: deb
+    url: "http://repo.percona.com/ps-84-lts/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: deb-src
+    url: "http://repo.percona.com/ps-84-lts/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: deb
+    url: "http://repo.percona.com/tools/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: deb-src
+    url: "http://repo.percona.com/tools/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: deb
+    url: "http://repo.percona.com/telemetry/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: deb-src
+    url: "http://repo.percona.com/telemetry/apt {{ ansible_distribution_release }}"
+    component: main
+
+percona_server_repositories: "{{ percona_server_repositories_84 if percona_server_version is version('8.4', '==') else percona_server_repositories_8 if percona_server_version is version('8.0', '==') else percona_server_repositories_5 }}"
 
 percona_server_debconf_selections:
   - name: "percona-server-server{{ percona_server_version_deb }}"
@@ -94,3 +115,4 @@ percona_server_libmysqlclient_map:
   5.6: libperconaserverclient18.1
   5.7: libperconaserverclient20
   8.0: libperconaserverclient21
+  8.4: libperconaserverclient22

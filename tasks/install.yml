@@ -12,7 +12,7 @@
   tags:
     - percona-server-install-configure-debconf
 
-- name: install | configure debconf for version 8.0 (Use Legacy Authentication Method)
+- name: install | configure debconf for version 8.0/8.4 (Use Legacy Authentication Method)
   ansible.builtin.debconf:
     name: 'percona-server-server'
     question: 'percona-server-server/default-auth-override'
@@ -20,10 +20,21 @@
     vtype: select
   changed_when: false
   when:
-    - percona_server_version is version('8.0', '==')
+    - percona_server_version is version('8.0', '==') or percona_server_version is version('8.4', '==')
     - percona_server_use_legacy_auth_method | bool
   tags:
     - percona-server-install-configure-debconf
+
+- name: install | telemetry package for Percona Server 8.4
+  ansible.builtin.apt:
+    name: "percona-telemetry-agent"
+    state: "{{ apt_install_state | default('latest') }}"
+  environment:
+    PERCONA_DISABLE_TELEMETRY: "{{ '1' if not percona_server_telemetry_enabled | bool else '0' }}"
+  when:
+    - percona_server_version is version('8.4', '==')
+  tags:
+    - percona-server-install-telemetry
 
 - name: install | dependencies
   ansible.builtin.apt:
