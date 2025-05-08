@@ -4,9 +4,11 @@
   no_log: true
   community.mysql.mysql_user:
     name: "{{ item[0].name }}"
-    password: "{{ item[0].password }}"
+    password: "{{ item[0].password | default(omit) }}"
     priv: "{{ item[0].privs | join('/') }}"
     host: "{{ item[1] }}"
+    plugin: "{{ item[0].plugin | default(omit) }}"
+    plugin_auth_string: "{{ item[0].plugin_auth_string | default(omit) }}"
     state: present
     check_implicit_admin: true
     login_user: "{{ percona_server_root_username }}"
@@ -22,9 +24,11 @@
   no_log: true
   community.mysql.mysql_user:
     name: "{{ item[0].name }}"
-    password: "{{ item[0].password }}"
+    password: "{{ item[0].password | default(omit) }}"
     priv: "{{ item[0].privs | join('/') }}"
     host: "{{ item[1] }}"
+    plugin: "{{ item[0].plugin | default(omit) }}"
+    plugin_auth_string: "{{ item[0].plugin_auth_string | default(omit) }}"
     state: present
     check_implicit_admin: true
     login_user: "{{ percona_server_root_username }}"

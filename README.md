@@ -19,7 +19,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 ##### General
 
-* `percona_server_version`: [default: `5.7`]: Version to install (e.g. `5.6`)
+* `percona_server_version`: [default: `5.7`]: Version to install (e.g. `5.6`, `8.0`, `8.4`)
 * `percona_server_root_username`: [default: `root`]: Root username
 * `percona_server_root_password`: [default: `+eswuw9uthUteFreyAqu`]: Root password **Make sure to change!**
 
@@ -30,7 +30,8 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 * `percona_server_user_root_cnf_manage`: [default: `true`]: Whether or not to manage `~root/.my.cnf`
 * `percona_server_user_root_cnf`: [default: `percona_server_user_root_cnf_preset`, see `defaults/main.yml`]: Root user configuration declarations
-* `percona_server_use_legacy_auth_method`: [default: `false`]: Use legacy authentication method **_(only Percona Server 8.0)_**
+* `percona_server_use_legacy_auth_method`: [default: `false`]: Use legacy authentication method **_(only Percona Server 8.0/8.4)_**. Note that Percona Server 8.4 has legacy authentication disabled by default.
+* `percona_server_telemetry_enabled`: [default: `false`]: Enable telemetry data collection **_(only Percona Server 8.4)_**. The telemetry agent is always installed but disabled by default.
 
 ##### SSL
 
@@ -65,7 +66,9 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 * `percona_server_users_present`: [default: `[]`]: Users to `CREATE`
 * `percona_server_users_present.{n}.name`: [required]: The name of the user
-* `percona_server_users_present.{n}.password`: [required]: The password of the user
+* `percona_server_users_present.{n}.password`: [required for legacy auth]: The password of the user
+* `percona_server_users_present.{n}.plugin`: [optional]: Authentication plugin to use (e.g. `caching_sha2_password`) **_(for Percona Server 8.0/8.4 without legacy auth)_**
+* `percona_server_users_present.{n}.plugin_auth_string`: [optional]: Authentication string for the plugin **_(for Percona Server 8.0/8.4 without legacy auth)_**
 * `percona_server_users_present.{n}.privs`: [required]: Privileges (e.g. `'test.*:ALL'`)
 * `percona_server_users_present.{n}.hosts`: [optional, default: `percona_server_users_present_hosts`]: Hosts to `CREATE` privileges for (e.g. `%`)
 
@@ -93,7 +96,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 ##### Toolkit UDFs
 
-* `percona_server_toolkit_udfs_manage`: [default: `true`]: Whether or not to install recommended hash functions ([see](https://www.percona.com/doc/percona-server/LATEST/management/udf_percona_toolkit.html))
+* `percona_server_toolkit_udfs_manage`: [default: `true`]: Whether or not to install recommended hash functions ([see](https://www.percona.com/doc/percona-server/LATEST/management/udf_percona_toolkit.html)). Note: This feature is automatically disabled for Percona Server 8.4 regardless of this setting.
 
 ## Dependencies
 
