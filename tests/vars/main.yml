@@ -1,7 +1,7 @@
 # vars file
 ---
 percona_server_version: 8.0
-percona_server_use_legacy_auth_method: "{{ percona_server_version is version('8', '>=') | ternary(true, false) }}"
+percona_server_use_legacy_auth_method: "{{ percona_server_version is version('8.0', '==') | ternary(true, false) }}"
 
 percona_server_databases_present:
   - name: ipsum

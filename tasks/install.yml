@@ -18,7 +18,7 @@
   tags:
     - percona-server-install-configure-debconf
   block:
-    - name: install | configure debconf | 8 | use legacy authentication method
+    - name: install | configure debconf | 8.0 | use legacy authentication method
       ansible.builtin.debconf:
         name: 'percona-server-server'
         question: 'percona-server-server/default-auth-override'
@@ -28,7 +28,7 @@
       when:
         - percona_server_use_legacy_auth_method | bool
 
-    - name: install | configure debconf | 8 | use existent my.cnf
+    - name: install | configure debconf | 8.0 | use existent my.cnf
       ansible.builtin.debconf:
         name: 'percona-server-server'
         question: 'percona-server-server/existing_config_file'
