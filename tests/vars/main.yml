@@ -1,5 +1,8 @@
 # vars file
 ---
+percona_server_version: 8.0
+percona_server_use_legacy_auth_method: "{{ percona_server_version is version('8', '>=') | ternary(true, false) }}"
+
 percona_server_databases_present:
   - name: ipsum
   - name: dolor
@@ -35,6 +38,11 @@ percona_server_users_absent:
 percona_server_queries:
   - database: mysql
     queries:
-      - "INSERT IGNORE INTO user (Host, User, authentication_string, ssl_type, ssl_cipher, x509_issuer, x509_subject) VALUES ('localhost', 'test', password('test'), '', '', '', '')"
+      - |
+        INSERT IGNORE INTO user (
+          Host, User, authentication_string, ssl_type, ssl_cipher, x509_issuer, x509_subject
+        ) VALUES (
+          'localhost', 'test', CONCAT('*', UPPER(SHA1(UNHEX(SHA1('test'))))), '', '', '', ''
+        )
 
 percona_server_zoneinfo_manage: true

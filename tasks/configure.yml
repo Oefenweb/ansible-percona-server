@@ -26,11 +26,11 @@
 
     - name: configure | remove (excessive) configuration files
       ansible.builtin.file:
-        path: "{{ item }}"
+        path: "{{percona_server_etc_mysql_preset }}/{{ item }}"
         state: absent
       with_items:
-        - /etc/mysql/percona-server.cnf
-        - /etc/mysql/percona-server.conf.d
+        - percona-server.cnf
+        - percona-server.conf.d
       tags:
         - percona-server-configure-first-run-cleanup
 
