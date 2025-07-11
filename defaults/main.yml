@@ -7,6 +7,7 @@ percona_server_root_password: '+eswuw9uthUteFreyAqu'
 
 percona_server_use_legacy_auth_method: false
 
+percona_server_absent_paths: []
 percona_server_etc_my_cnf: []
 
 percona_server_user_root_cnf_manage: true
@@ -22,7 +23,7 @@ percona_server_user_root_cnf_preset:
 percona_server_user_root_cnf: "{{ percona_server_user_root_cnf_preset }}"
 
 percona_server_install:
-  - "percona-xtrabackup{{ '-80' if percona_server_version is version('8', '>=') else '-24' if percona_server_version is version('5.7', '>=') else '' }}"
+  - "percona-xtrabackup{{ percona_server_version is version('8', '>=') | ternary('-80', percona_server_version is version('5.7', '>=') | ternary('-24', '')) }}"
 
 percona_server_restart_handler_state: restarted
 

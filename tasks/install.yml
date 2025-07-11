@@ -12,18 +12,29 @@
   tags:
     - percona-server-install-configure-debconf
 
-- name: install | configure debconf for version 8.0 (Use Legacy Authentication Method)
-  ansible.builtin.debconf:
-    name: 'percona-server-server'
-    question: 'percona-server-server/default-auth-override'
-    value: 'Use Legacy Authentication Method (Retain MySQL 5.x Compatibility)'
-    vtype: select
-  changed_when: false
+- name: install | configure debconf | 8.0
   when:
     - percona_server_version is version('8.0', '==')
-    - percona_server_use_legacy_auth_method | bool
   tags:
     - percona-server-install-configure-debconf
+  block:
+    - name: install | configure debconf | 8.0 | use legacy authentication method
+      ansible.builtin.debconf:
+        name: 'percona-server-server'
+        question: 'percona-server-server/default-auth-override'
+        value: 'Use Legacy Authentication Method (Retain MySQL 5.x Compatibility)'
+        vtype: select
+      changed_when: false
+      when:
+        - percona_server_use_legacy_auth_method | bool
+
+    - name: install | configure debconf | 8.0 | use existent my.cnf
+      ansible.builtin.debconf:
+        name: 'percona-server-server'
+        question: 'percona-server-server/existing_config_file'
+        value: 'Use existent my.cnf (RECOMMENDED)'
+        vtype: select
+      changed_when: false
 
 - name: install | dependencies
   ansible.builtin.apt:

@@ -1,5 +1,113 @@
 # vars file
 ---
+percona_server_version: 8.0
+percona_server_use_legacy_auth_method: "{{ percona_server_version is version('8.0', '==') | ternary(true, false) }}"
+
+_percona_server_run_path: /run/mysqld
+_percona_server_character_set: utf8mb4
+_percona_server_secure_log_path: /var/log/mysql
+_percona_server_sql_mode:
+  - ONLY_FULL_GROUP_BY
+  - STRICT_TRANS_TABLES
+  - NO_ZERO_IN_DATE
+  - NO_ZERO_DATE
+  - ERROR_FOR_DIVISION_BY_ZERO
+  - NO_ENGINE_SUBSTITUTION
+_percona_server_tls_version:
+  - TLSv1.2
+  - TLSv1.3
+
+percona_server_socket: "{{ _percona_server_run_path }}/mysqld.sock"
+
+###############################################################################
+# begin option presets
+###############################################################################
+
+percona_server_etc_my_cnf_socket:
+  name: socket
+  value: "{{ percona_server_socket }}"
+percona_server_etc_my_cnf_default_character_set:
+  name: default_character_set
+  value: "{{ _percona_server_character_set }}"
+percona_server_etc_my_cnf_pid_file:
+  name: pid_file
+  value: "{{ _percona_server_run_path }}/mysqld.pid"
+percona_server_etc_my_cnf_secure_log_path:
+  name: secure_log_path
+  value: "{{ _percona_server_secure_log_path }}"
+percona_server_etc_my_cnf_general_log_file:
+  name: general_log_file
+  value: "{{ _percona_server_secure_log_path }}/mysql.log"
+percona_server_etc_my_cnf_log_error:
+  name: log_error
+  value: "{{ _percona_server_secure_log_path }}/error.log"
+percona_server_etc_my_cnf_slow_query_log_file:
+  name: slow_query_log_file
+  value: "{{ _percona_server_secure_log_path }}/mysql-slow.log"
+percona_server_etc_my_cnf_tls_version:
+  name: tls_version
+  value: "{{ _percona_server_tls_version | join(',') }}"
+percona_server_etc_my_cnf_skip_name_resolve:
+  name: skip_name_resolve
+  value: 1
+percona_server_etc_my_cnf_explicit_defaults_for_timestamp:
+  name: explicit_defaults_for_timestamp
+  value: 1
+percona_server_etc_my_cnf_sql_mode:
+  name: sql_mode
+  value: "{{ _percona_server_sql_mode | join(',') }}"
+percona_server_etc_my_cnf_character_set_server:
+  name: character_set_server
+  value: "{{ _percona_server_character_set }}"
+percona_server_etc_my_cnf_init_connect:
+  name: init_connect
+  value: "'SET collation_connection = {{ _percona_server_character_set }}_unicode_ci; SET NAMES {{ _percona_server_character_set }};'"
+percona_server_etc_my_cnf_collation_server:
+  name: collation_server
+  value: "{{ _percona_server_character_set }}_general_ci"
+percona_server_etc_my_cnf_skip_character_set_client_handshake:
+  name: skip-character-set-client-handshake
+
+###############################################################################
+# end option presets
+###############################################################################
+
+percona_server_etc_my_cnf:
+  - section: client
+    options:
+      - "{{ percona_server_etc_my_cnf_socket }}"
+      - "{{ percona_server_etc_my_cnf_default_character_set }}"
+
+  - section: mysql
+    options:
+      - "{{ percona_server_etc_my_cnf_socket }}"
+      - "{{ percona_server_etc_my_cnf_default_character_set }}"
+
+  - section: mysqld_safe
+    options:
+      - "{{ percona_server_etc_my_cnf_socket }}"
+      - "{{ percona_server_etc_my_cnf_default_character_set }}"
+
+  - section: mysqld
+    options:
+      - "{{ percona_server_etc_my_cnf_socket }}"
+      - "{{ percona_server_etc_my_cnf_pid_file }}"
+      - "{{ percona_server_etc_my_cnf_secure_log_path }}"
+      - "{{ percona_server_etc_my_cnf_general_log_file }}"
+      - "{{ percona_server_etc_my_cnf_log_error }}"
+      - "{{ percona_server_etc_my_cnf_slow_query_log_file }}"
+      - "{{ percona_server_etc_my_cnf_tls_version }}"
+      - "{{ percona_server_etc_my_cnf_skip_name_resolve }}"
+      - "{{ percona_server_etc_my_cnf_explicit_defaults_for_timestamp }}"
+      - "{{ percona_server_etc_my_cnf_sql_mode }}"
+      - "{{ percona_server_etc_my_cnf_character_set_server }}"
+      - "{{ percona_server_etc_my_cnf_collation_server }}"
+      - "{{ percona_server_etc_my_cnf_skip_character_set_client_handshake }}"
+      - "{{ percona_server_etc_my_cnf_init_connect }}"
+
+percona_server_absent_paths:
+  - "{{ percona_server_etc_mysql_conf_d }}/mysql.cnf"
+
 percona_server_databases_present:
   - name: ipsum
   - name: dolor
@@ -35,6 +143,11 @@ percona_server_users_absent:
 percona_server_queries:
   - database: mysql
     queries:
-      - "INSERT IGNORE INTO user (Host, User, authentication_string, ssl_type, ssl_cipher, x509_issuer, x509_subject) VALUES ('localhost', 'test', password('test'), '', '', '', '')"
+      - |
+        INSERT IGNORE INTO user (
+          Host, User, authentication_string, ssl_type, ssl_cipher, x509_issuer, x509_subject
+        ) VALUES (
+          'localhost', 'test', CONCAT('*', UPPER(SHA1(UNHEX(SHA1('test'))))), '', '', '', ''
+        )
 
 percona_server_zoneinfo_manage: true
