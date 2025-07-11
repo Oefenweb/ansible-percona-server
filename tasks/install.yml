@@ -12,7 +12,7 @@
   tags:
     - percona-server-install-configure-debconf
 
-- name: install | configure debconf | 8
+- name: install | configure debconf | 8.0
   when:
     - percona_server_version is version('8.0', '==')
   tags:
