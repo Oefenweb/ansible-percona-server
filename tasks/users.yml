@@ -25,6 +25,7 @@
     password: "{{ item[0].password }}"
     priv: "{{ item[0].privs | join('/') }}"
     host: "{{ item[1] }}"
+    tls_requires: "{{ item[0].tls_requires | default({}) }}"
     state: present
     check_implicit_admin: true
     login_user: "{{ percona_server_root_username }}"
