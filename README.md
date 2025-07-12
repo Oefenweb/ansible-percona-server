@@ -53,10 +53,13 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 ##### Databases
 
+* `percona_server_databases_default_encoding`: [default: `utf8`]: The (default) character set of the database
+* `percona_server_databases_default_collation`: [default: `{{ percona_server_databases_default_encoding }}_general_ci`]: The (default) collation of the database
+
 * `percona_server_databases_present`: [default: `[]`]: Databases to `CREATE`
 * `percona_server_databases_present.{n}.name`: [required]: The name of the database
-* `percona_server_databases_present.{n}.collation`: [optional, default: `utf8_general_ci`]: The collation of the database
-* `percona_server_databases_present.{n}.encoding`: [optional, default: `utf8`]: The character set of the database
+* `percona_server_databases_present.{n}.encoding`: [optional, default: `{{ percona_server_databases_default_encoding }}`]: The character set of the database
+* `percona_server_databases_present.{n}.collation`: [optional, default: `{{ percona_server_databases_default_collation }}`]: The collation of the database
 
 * `percona_server_databases_absent`: [default: `[{name: test}]`]: Databases to `DROP`
 * `percona_server_databases_absent.{n}.name`: [required]: The name of the database

@@ -3,8 +3,8 @@
 - name: databases | create
   community.mysql.mysql_db:
     name: "{{ item.name }}"
-    collation: "{{ item.collation | default('utf8_general_ci') }}"
-    encoding: "{{ item.encoding | default('utf8') }}"
+    encoding: "{{ item.encoding | default(percona_server_databases_default_encoding) }}"
+    collation: "{{ item.collation | default(percona_server_databases_default_collation) }}"
     state: present
     check_implicit_admin: true
     login_user: "{{ percona_server_root_username }}"

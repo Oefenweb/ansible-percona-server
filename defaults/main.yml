@@ -32,6 +32,8 @@ percona_server_ssl_map: {}
 percona_server_plugins_present: []
 percona_server_plugins_absent: []
 
+percona_server_databases_default_encoding: utf8
+percona_server_databases_default_collation: "{{ percona_server_databases_default_encoding }}_general_ci"
 percona_server_databases_present: []
 percona_server_databases_absent:
   # Remove test database
