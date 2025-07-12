@@ -53,8 +53,8 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 ##### Databases
 
-* `percona_server_databases_default_encoding`: [default: `utf8`]: The (default) character set of the database
-* `percona_server_databases_default_collation`: [default: `{{ percona_server_databases_default_encoding }}_general_ci`]: The (default) collation of the database
+* `percona_server_databases_default_encoding`: [default: `utf8`]: The (default) character set of the databases
+* `percona_server_databases_default_collation`: [default: `{{ percona_server_databases_default_encoding }}_general_ci`]: The (default) collation of the databases
 
 * `percona_server_databases_present`: [default: `[]`]: Databases to `CREATE`
 * `percona_server_databases_present.{n}.name`: [required]: The name of the database
