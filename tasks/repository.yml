@@ -1,28 +1,39 @@
 # tasks file
 ---
-- name: repository | install | dependencies (pre)
+- name: repository | install dependencies (pre)
   ansible.builtin.apt:
     name: "{{ percona_server_dependencies_pre }}"
     state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
   tags:
-    - percona-server-repository-install
     - percona-server-repository-install-dependencies
 
-- name: repository | add public key
+- name: repository | (keyrings) directory | create
+  ansible.builtin.file:
+    path: "{{ percona_server_keyring_dst | dirname }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - percona-server-repository-keyrings-directory-create
+
+- name: repository | (keyring) file | download
   ansible.builtin.apt_key:
-    id: 9334A25F8507EFA5
+    id: "{{ percona_server_keyring_id }}"
     keyserver: "{{ apt_key_keyserver | default('keyserver.ubuntu.com') }}"
+    keyring: "{{ percona_server_keyring_dst }}"
     state: present
   tags:
-    - percona-server-repository-public-key
+    - percona-server-repository-keyring-file-download
 
 - name: repository | add
   ansible.builtin.apt_repository:
     repo: "{{ item.type }} {{ item.url }} {{ item.component }}"
-    state: present
+    state: "{{ item.state | default('present') }}"
     update_cache: true
+    mode: '0644'
   with_items: "{{ percona_server_repositories }}"
   tags:
     - percona-server-repository-add

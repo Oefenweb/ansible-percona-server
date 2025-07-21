@@ -8,27 +8,40 @@ percona_server_versions_supported:
 
 percona_server_version_deb: "{{ percona_server_version is version('8.0', '==') | ternary('', '-' ~ percona_server_version) }}"
 
+percona_server_keyring_id: 9334A25F8507EFA5
+percona_server_keyring_dst: /usr/share/keyrings/percona.gpg
+
 percona_server_repositories_5:
+  - type: "deb [signed-by={{ percona_server_keyring_dst }}]"
+    url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: "deb-src [signed-by={{ percona_server_keyring_dst }}]"
+    url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
+    component: main
   - type: deb
     url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
     component: main
+    state: absent
   - type: deb-src
     url: "http://repo.percona.com/apt {{ ansible_distribution_release }}"
     component: main
+    state: absent
 
 percona_server_repositories_8:
+  - type: "deb [signed-by={{ percona_server_keyring_dst }}]"
+    url: "http://repo.percona.com/ps-80/apt {{ ansible_distribution_release }}"
+    component: main
+  - type: "deb-src [signed-by={{ percona_server_keyring_dst }}]"
+    url: "http://repo.percona.com/ps-80/apt {{ ansible_distribution_release }}"
+    component: main
   - type: deb
     url: "http://repo.percona.com/ps-80/apt {{ ansible_distribution_release }}"
     component: main
+    state: absent
   - type: deb-src
     url: "http://repo.percona.com/ps-80/apt {{ ansible_distribution_release }}"
     component: main
-  - type: deb
-    url: "http://repo.percona.com/tools/apt {{ ansible_distribution_release }}"
-    component: main
-  - type: deb-src
-    url: "http://repo.percona.com/tools/apt {{ ansible_distribution_release }}"
-    component: main
+    state: absent
 
 percona_server_repositories: "{{ percona_server_version is version('8.0', '==') | ternary(percona_server_repositories_8, percona_server_repositories_5) }}"
 
