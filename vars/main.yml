@@ -54,7 +54,6 @@ percona_server_debconf_selections:
 percona_server_dependencies_pre:
   - software-properties-common
   - dirmngr
-  - gpg-agent
   - apt-transport-https
   - debconf-utils
 
