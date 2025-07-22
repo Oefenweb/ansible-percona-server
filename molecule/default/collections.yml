@@ -1,2 +1,4 @@
 ---
-collections: []
+collections:
+  - name: community.general
+    version: '>=2,<3'
