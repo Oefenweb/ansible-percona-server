@@ -12,7 +12,7 @@
   tags:
     - percona-server-install-configure-debconf
 
-- name: install | configure debconf for version 8.0/8.4 (Use Legacy Authentication Method)
+- name: install | configure debconf for version 8.0 (Use Legacy Authentication Method)
   ansible.builtin.debconf:
     name: 'percona-server-server'
     question: 'percona-server-server/default-auth-override'
@@ -20,7 +20,7 @@
     vtype: select
   changed_when: false
   when:
-    - percona_server_version is version('8.0', '==') or percona_server_version is version('8.4', '==')
+    - percona_server_version is version('8.0', '==')
     - percona_server_use_legacy_auth_method | bool
   tags:
     - percona-server-install-configure-debconf
