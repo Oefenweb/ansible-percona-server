@@ -1,0 +1,11 @@
+# tasks file
+---
+- name: fix root grants | execute sql
+  no_log: true
+  ansible.builtin.command: >
+    mysql -e "{{ item.rstrip(';') }};"
+  with_items: "{{ percona_server_root_grant_fixes + ['FLUSH PRIVILEGES'] }}"
+  when: percona_server_root_grant_fixes | length > 0
+  changed_when: false
+  tags:
+    - percona-server-fix-root-grants-execute-sql

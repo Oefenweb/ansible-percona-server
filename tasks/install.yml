@@ -36,6 +36,14 @@
         vtype: select
       changed_when: false
 
+- name: remove | dependencies
+  ansible.builtin.apt:
+    name: "{{ percona_server_dependencies_absent }}"
+    state: absent
+    purge: true
+  tags:
+    - percona-server-install-dependencies
+
 - name: install | dependencies
   ansible.builtin.apt:
     name: "{{ percona_server_dependencies }}"

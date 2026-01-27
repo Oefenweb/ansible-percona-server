@@ -21,13 +21,14 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `percona_server_version`: [default: `5.7`]: Version to install (e.g. `5.6`)
 * `percona_server_root_username`: [default: `root`]: Root username
 * `percona_server_root_password`: [default: `+eswuw9uthUteFreyAqu`]: Root password **Make sure to change!**
+* `percona_server_root_grant_fixes`: []: A list of queries to add missing `GRANT`s for the root user (if you're using the `skip_name_resolve` option for instance)
 
 * `percona_server_install`: [`['xtrabackup']`]: Additional packages to install
 
 * `percona_server_etc_my_cnf`: [default: `[]`]: Global configuration declarations
 * `percona_server_etc_my_cnf_includedir`: [optional]: Used to include other option files from this directory (e.g. `/etc/mysql/conf.d/`)
 
-* `percona_server_user_root_cnf_manage`: [default: `true`]: Whether or not to manage `~root/.my.cnf`
+* `percona_server_user_root_cnf_manage`: [default: `true`]: Whether to manage `~root/.my.cnf`
 * `percona_server_user_root_cnf`: [default: `percona_server_user_root_cnf_preset`, see `defaults/main.yml`]: Root user configuration declarations
 * `percona_server_use_legacy_auth_method`: [default: `false`]: Use legacy authentication method **_(only Percona Server 8.0)_**
 
@@ -87,7 +88,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 ##### Timezone info
 
-* `percona_server_zoneinfo_manage`: [default: `false`]: Whether or not to load time zone tables
+* `percona_server_zoneinfo_manage`: [default: `false`]: Whether to load time zone tables
 * `percona_server_zoneinfo_tz_dir`: [default: `/usr/share/zoneinfo`]: The zoneinfo directory path name
 * `percona_server_zoneinfo_tz_file`: [default: `''`]: The path of a single time zone file (e.g. `/usr/share/zoneinfo/Europe/Amsterdam`)
 * `percona_server_zoneinfo_tz_name`: [default: `''`]: A time zone name (e.g. `Europe/Amsterdam`)
@@ -95,7 +96,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 
 ##### Toolkit UDFs
 
-* `percona_server_toolkit_udfs_manage`: [default: `true`]: Whether or not to install recommended hash functions ([see](https://www.percona.com/doc/percona-server/LATEST/management/udf_percona_toolkit.html))
+* `percona_server_toolkit_udfs_manage`: [default: `true`]: Whether to install recommended hash functions ([see](https://www.percona.com/doc/percona-server/LATEST/management/udf_percona_toolkit.html))
 
 ## Dependencies
 
@@ -335,6 +336,22 @@ None
 
           - name: skip_slave_start
             value: 1
+```
+
+##### Add missing GRANTs for the root user
+
+```yaml
+---
+- hosts: all
+  roles:
+    - oefenweb.percona-server
+  vars:
+    percona_server_root_grant_fixes:
+      - >
+        CREATE USER IF NOT EXISTS '{{ percona_server_root_username }}'@'127.0.0.1' IDENTIFIED BY '{{ percona_server_root_password }}';
+        GRANT ALL PRIVILEGES ON *.* TO '{{ percona_server_root_username }}'@'127.0.0.1' WITH GRANT OPTION;
+        CREATE USER IF NOT EXISTS '{{ percona_server_root_username }}'@'::1' IDENTIFIED BY '{{ percona_server_root_password }}';
+        GRANT ALL PRIVILEGES ON *.* TO '{{ percona_server_root_username }}'@'::1' WITH GRANT OPTION;
 ```
 
 #### License

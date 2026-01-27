@@ -4,6 +4,7 @@ percona_server_version: 5.7
 
 percona_server_root_username: root
 percona_server_root_password: '+eswuw9uthUteFreyAqu'
+percona_server_root_grant_fixes: []
 
 percona_server_use_legacy_auth_method: false
 
@@ -47,7 +48,7 @@ percona_server_users_absent:
   # Remove anonymous users
   - name: ''
 percona_server_users_absent_hosts:
-  - "{{ ansible_hostname }}"
+  - "{{ ansible_facts['hostname'] }}"
   - '127.0.0.1'
   - 'localhost'
   - '::1'

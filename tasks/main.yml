@@ -35,6 +35,13 @@
     - percona-server
     - percona-server-configure
 
+- name: fix root grants
+  ansible.builtin.import_tasks: fix-root-grants.yml
+  tags:
+    - configuration
+    - percona-server
+    - percona-server-fix-root-grants
+
 - name: toolkit udfs
   ansible.builtin.import_tasks: toolkit-udfs.yml
   tags:
