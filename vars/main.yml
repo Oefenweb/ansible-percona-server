@@ -91,10 +91,9 @@ percona_server_dependencies:
   - "percona-server-client{{ percona_server_version_deb }}"
   - "percona-server-server{{ percona_server_version_deb }}"
   - "{{ percona_server_libmysqlclient_map[percona_server_version] }}"
-  - "{{ _percona_server_python_package_prefix }}-mysqldb"
-#  - "{{ _percona_server_python_package_prefix }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '>=') else 'mysqldb' }}"
-percona_server_dependencies_absent: []
-#  - "{{ _percona_server_python_package_prefix }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '<') else 'mysqldb' }}"
+  - "{{ _percona_server_python_package_prefix }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '>=') else 'mysqldb' }}"
+percona_server_dependencies_absent:
+  - "{{ _percona_server_python_package_prefix }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '<') else 'mysqldb' }}"
 
 percona_server_etc_mysql_preset: /etc/mysql
 percona_server_etc_mysql_mysql_conf_d: "{{ percona_server_etc_mysql_preset }}/mysql.conf.d"
