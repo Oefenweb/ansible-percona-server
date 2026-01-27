@@ -140,6 +140,20 @@ percona_server_users_present:
       - 'dolor.*:INSERT,UPDATE'
     hosts:
       - '%'
+  - name: malesuada
+    password: 'enim'
+    privs:
+      - 'ipsum.*:ALL'
+      - 'dolor.*:ALL'
+    tls_requires: {}
+  - name: venenatis
+    password: 'rutrum'
+    privs:
+      - 'ipsum.*:ALL'
+      - 'dolor.*:ALL'
+    tls_requires:
+      subject: '/CN=alice/O=MyDom, Inc./C=US/ST=Oregon/L=Portland'
+      cipher: 'ECDHE-ECDSA-AES256-SHA384'
 
 percona_server_users_absent:
   - name: urna
