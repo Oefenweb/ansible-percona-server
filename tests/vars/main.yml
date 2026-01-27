@@ -3,6 +3,13 @@
 percona_server_version: 8.0
 percona_server_use_legacy_auth_method: "{{ percona_server_version is version('8.0', '==') | ternary(true, false) }}"
 
+percona_server_root_grant_fixes:
+  - >
+    CREATE USER IF NOT EXISTS '{{ percona_server_root_username }}'@'127.0.0.1' IDENTIFIED BY '{{ percona_server_root_password }}';
+    GRANT ALL PRIVILEGES ON *.* TO '{{ percona_server_root_username }}'@'127.0.0.1' WITH GRANT OPTION;
+    CREATE USER IF NOT EXISTS '{{ percona_server_root_username }}'@'::1' IDENTIFIED BY '{{ percona_server_root_password }}';
+    GRANT ALL PRIVILEGES ON *.* TO '{{ percona_server_root_username }}'@'::1' WITH GRANT OPTION;
+
 _percona_server_run_path: /run/mysqld
 _percona_server_character_set: utf8mb4
 _percona_server_secure_log_path: /var/log/mysql

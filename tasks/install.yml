@@ -14,7 +14,7 @@
 
 - name: install | configure debconf | 8.0
   when:
-    - percona_server_version is version('8.0', '==')
+    - _percona_server_version_is_80 | bool
   tags:
     - percona-server-install-configure-debconf
   block:
@@ -35,6 +35,14 @@
         value: 'Use existent my.cnf (RECOMMENDED)'
         vtype: select
       changed_when: false
+
+- name: remove | dependencies
+  ansible.builtin.apt:
+    name: "{{ percona_server_dependencies_absent }}"
+    state: absent
+    purge: true
+  tags:
+    - percona-server-install-dependencies
 
 - name: install | dependencies
   ansible.builtin.apt:
