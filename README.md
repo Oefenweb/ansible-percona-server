@@ -71,6 +71,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `percona_server_users_present.{n}.password`: [required]: The password of the user
 * `percona_server_users_present.{n}.privs`: [required]: Privileges (e.g. `'test.*:ALL'`)
 * `percona_server_users_present.{n}.hosts`: [optional, default: `percona_server_users_present_hosts`]: Hosts to `CREATE` privileges for (e.g. `%`)
+* `percona_server_users_present.{n}.tls_requires`: [optional]: Requirement for secure transport (e.g. `{}` or `{subject: '/CN=alice/O=MyDom, Inc./C=US/ST=Oregon/L=Portland', cipher: 'ECDHE-ECDSA-AES256-SHA384'}`)
 
 * `percona_server_users_present_hosts`: [default: `[localhost]`]: Hosts to `CREATE` privileges for
 
