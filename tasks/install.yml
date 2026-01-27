@@ -14,7 +14,7 @@
 
 - name: install | configure debconf | 8.0
   when:
-    - percona_server_version is version('8.0', '==')
+    - _percona_server_version_is_80 | bool
   tags:
     - percona-server-install-configure-debconf
   block:

@@ -1,12 +1,15 @@
 # vars file
 ---
+_percona_server_version_is_80: "{{ percona_server_version is version('8.0', '==') }}"
+_percona_server_python_package_prefix: "python{{ ansible_facts['python_version'] is version('3', '>=') | ternary('3', '') }}"
+
 percona_server_versions_supported:
   - '5.5'
   - '5.6'
   - '5.7'
   - '8.0'
 
-percona_server_version_deb: "{{ percona_server_version is version('8.0', '==') | ternary('', '-' ~ percona_server_version) }}"
+percona_server_version_deb: "{{ _percona_server_version_is_80 | ternary('', '-' ~ percona_server_version) }}"
 
 percona_server_keyring_id: 9334A25F8507EFA5
 percona_server_keyring_dst: /usr/share/keyrings/percona.gpg
@@ -57,7 +60,7 @@ percona_server_repositories_8:
     component: main
     state: absent
 
-percona_server_repositories: "{{ percona_server_version is version('8.0', '==') | ternary(percona_server_repositories_8, percona_server_repositories_5) }}"
+percona_server_repositories: "{{ _percona_server_version_is_80 | ternary(percona_server_repositories_8, percona_server_repositories_5) }}"
 
 percona_server_debconf_selections:
   - name: "percona-server-server{{ percona_server_version_deb }}"
@@ -88,9 +91,10 @@ percona_server_dependencies:
   - "percona-server-client{{ percona_server_version_deb }}"
   - "percona-server-server{{ percona_server_version_deb }}"
   - "{{ percona_server_libmysqlclient_map[percona_server_version] }}"
-  - "python{{ ansible_facts['python_version'] is version('3', '>=') | ternary('3', '') }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '>=') else 'mysqldb' }}"
-percona_server_dependencies_absent:
-  - "python{{ ansible_facts['python_version'] is version('3', '>=') | ternary('3', '') }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '<') else 'mysqldb' }}"
+  - "{{ _percona_server_python_package_prefix }}-mysqldb"
+#  - "{{ _percona_server_python_package_prefix }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '>=') else 'mysqldb' }}"
+percona_server_dependencies_absent: []
+#  - "{{ _percona_server_python_package_prefix }}-{{ 'pymysql' if lookup('community.general.collection_version', 'community.mysql') is version('3.10.0', '<') else 'mysqldb' }}"
 
 percona_server_etc_mysql_preset: /etc/mysql
 percona_server_etc_mysql_mysql_conf_d: "{{ percona_server_etc_mysql_preset }}/mysql.conf.d"
