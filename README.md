@@ -79,7 +79,7 @@ Set up a [percona-server](https://www.percona.com/software/mysql-database/percon
 * `percona_server_users_absent.{n}.name`: [required]: The name of the user
 * `percona_server_users_absent.{n}.hosts`: [optional, default: `percona_server_users_absent_hosts`]: Hosts to `DROP` privileges for (e.g. `%`)
 
-* `percona_server_users_absent_hosts`: [default: `[{{ ansible_hostname }}, 127.0.0.1, localhost, ::1, %]`]: Hosts to `DROP` privileges for
+* `percona_server_users_absent_hosts`: [default: `[{{ ansible_facts['hostname'] }}, 127.0.0.1, localhost, ::1, %]`]: Hosts to `DROP` privileges for
 
 ##### Queries
 
