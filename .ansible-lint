@@ -4,3 +4,4 @@ warn_list:
   - name[play]
   - name[casing]
   - risky-shell-pipe
+  - fqcn[canonical]
